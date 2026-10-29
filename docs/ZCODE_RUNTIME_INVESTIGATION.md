@@ -1,0 +1,59 @@
+# ZCode runtime 调查（V0.1）
+
+调查日期：2026-10-29。官方仓库：[zai-org/ZCode](https://github.com/zai-org/ZCode)。
+本次通过 GitHub 连接读取默认分支、提交、文档、配置编解码、权限服务和打包源码；没有执行上游安装脚本或二进制。
+
+基线：`3c5b227649371507ddc4eb46ac5133afe6db1cab`，提交时间 2026-10-20 06:23:05 UTC；README 最新版本标记为 3.16.2。源码版本标记与公开发行版本不能混为一谈。
+
+## 核实结果
+
+| 项目 | 当前官方实现 | RDT V0.1 采用方案 |
+| --- | --- | --- |
+| Windows | 文档提供 PowerShell 调用示例；SEA targets 含 win-x64、win-arm64 | C#/.NET 10 Windows 优先；本次仅验证当前 x64 主机 |
+| 启动 | 无参数 TUI；`--prompt <text> --cwd <path> --mode plan --json --no-color` 可非交互运行 | 固定参数构造器；不开放任意额外参数 |
+| 权限 | plan/build/edit/yolo/guarded；`--prompt` 默认 yolo | 永远显式 plan；REPAIR 无实现 |
+| plan | 拒绝普通写入、命令；允许 readOnly 工具、非 destructive MCP、部分 session 能力 | 不称为 OS 沙箱；禁扩展，移除执行/编辑/模式切换工具；真实入口关闭待验证 |
+| provider | 个人模型在数据基目录 `.zcode/v2/provider_config.json`；运行配置在 homedir `.zcode/cli/config.json` | 两份配置分别生成，个人配置 schemaVersion=1 |
+| Key | `config.providerConfigRules.providerRules[].config.access`，type=api-key、apiKey；API 为 `api.type`、`api.baseUrl` | 解密后只写当前隔离目录，不用命令行或 Key 环境变量 |
+| 用户目录 | file-config adapter 使用 node:os homedir；不是所有模块都认 DATA_BASE_DIR | 子进程同时覆盖 HOME、USERPROFILE、ZCODE_DATA_BASE_DIR |
+| 额外路径 | 支持 PERSONAL_PROVIDER_CONFIG_FILE、STORAGE_DIR、SESSION_DB_PATH、LOG_DIR 等 | 显式指向 session；环境先清空再按白名单构造 |
+| 配置发现 | 项目配置与向上发现的 .env 也可能参与 | 只用新建空 workspace；后续真实接入还须实测父目录发现行为 |
+| 本地数据 | config、v2 credentials/provider、cli db、log、rollout、plugins/workflows、memory、mailbox、SEA 解包资源等 | home/data/workspace/runtime 全部置于 session；内部日志不导出 |
+| 发行 | 根 distribution 为 tar.gz、依赖 Node；CLI SEA 可嵌 Node | 不安装 Node/pnpm、不运行上游构建；RDT 单独支持自包含目录发布 |
+| 单文件 Windows | SEA 脚本支持 `zcode-windows-x64.exe` / arm64；可构建不代表已验证 | 公开 Releases API 本次仅返回 v3.14.3 桌面 dmg/exe，没有独立 CLI 资产 |
+
+## 与最初假设的差异
+
+1. 假设：旧式 provider 配置可直接使用。实际：版本化规则结构已替代旧 model/provider；旧字段只一次性迁移。影响：不能复用旧教程。方案：实现当前 schema，使用个人 provider `rdt-g`。
+2. 假设：plan 就是严格只读。实际：权限服务对某些 MCP/session 能力放行，没有 OS 沙箱。影响：单靠模式或提示词无法承诺客户系统只读。方案：RDT 只暴露 READ ONLY，禁用扩展与危险工具；真实进程启动 fail closed，等待固定产物的拒绝测试。
+3. 假设：仅设置 ZCODE_DATA_BASE_DIR 足够。实际：运行配置通过 homedir 定位。影响：可能读取客户配置。方案：覆盖所有相关用户/存储路径，清空继承的 ZCODE/NODE 等环境，仅允许最少系统变量。
+4. 假设：可直接获得 Windows 独立发行版。实际：源码有 SEA 工具链，公开 Release 的 Windows exe 为桌面产品。影响：本次不具备可信独立 CLI 实测环境。方案：真实 Adapter 契约 + 真子进程 Mock；不伪造真实 API 接入成功。
+
+## 已阅读的官方材料（固定提交链接）
+
+- [README / distribution](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/README.en.md)
+- [CLI README](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/README.md)
+- [快速开始 / Windows / SEA / 隔离](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/docs/usage/01-quickstart.md)
+- [启动参数](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/docs/usage/02-cli-reference.md)
+- [配置与 Key](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/docs/usage/03-config.md)
+- [工具面](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/docs/usage/04-tools.md)
+- [权限文档](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/docs/usage/05-permissions.md)
+- [权限服务源码](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/core/src/permission/service.ts)
+- [CLI 参数解析](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/cli/src/arguments.ts)
+- [用户配置路径](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/adapters/src/config/file-config.adapter.ts)
+- [共享凭据路径](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/adapters/src/auth/shared-credentials.ts)
+- [Provider 路径](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/packages/provider-node/src/runtime-paths.ts)
+- [Provider 文件 codec](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/packages/provider-node/src/provider-config-file-codec.ts)
+- [Provider 规则 schema](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/packages/provider/src/config/rule-data-schema.ts)
+- [Bootstrap 配置约束](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/bootstrap/src/app/app-config-options.ts)
+- [工具过滤](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/core/src/runtime/helpers/tool-allowlist.ts)
+- [SEA targets](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/cli/scripts/sea-targets.mjs)
+- [SEA build](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/cli/scripts/build-sea.mjs)
+- [数据、日志、无默认沙箱声明](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/NOTICE.md)
+- [公开 Releases](https://api.github.com/repos/zai-org/ZCode/releases)
+
+## 真实接入的放行条件
+
+额外实现细节：`provider-node/runtime-paths.ts` 的底层 resolver 要求 builtin 与 personal 两条路径成对出现；但 CLI `provider-runtime-env.ts` 入口接受只指定 personal，并准备/缓存随包 builtin，随后把两条路径交给 runtime。RDT 只设置 personal 路径，不能把空 JSON 冒充 builtin 配置。真实接入还须核验 builtin 刷新与缓存的网络行为及临时落盘位置。
+
+取得可信、固定 hash/版本及许可证材料的 Windows CLI（无需主账号登录）；在临时目录实测 --help、doctor、provider schema 与工具清单；使用本地受控 provider（无真实 Key）验证 Read 成功、Write/Edit/Bash/模式切换/子任务/MCP/插件失败；验证配置与 .env 不越界，进程树停止后无残留 profile。完成后才实现启用逻辑，不能用一个用户开关跳过。

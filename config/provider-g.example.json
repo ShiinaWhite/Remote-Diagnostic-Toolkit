@@ -1,0 +1,4 @@
+{
+  "BaseUrl": "https://api.z.ai/api/paas/v4",
+  "ModelId": "REPLACE_WITH_VERIFIED_MODEL_ID"
+}

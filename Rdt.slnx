@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Rdt.Cli/Rdt.Cli.csproj" />
+    <Project Path="src/Rdt.Core/Rdt.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Rdt.Tests/Rdt.Tests.csproj" />
+  </Folder>
+</Solution>

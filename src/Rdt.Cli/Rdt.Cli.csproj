@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>rdt</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../Rdt.Core/Rdt.Core.csproj" /></ItemGroup>
+</Project>

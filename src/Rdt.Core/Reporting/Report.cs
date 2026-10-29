@@ -1,0 +1,45 @@
+using System.Text;
+using Rdt.Common;
+
+namespace Rdt.Reporting;
+
+public sealed class Report
+{
+    public string DirectoryPath { get; }
+    private Report(string path) => DirectoryPath = path;
+
+    public static Report Create(string reportsBase, string tempBase)
+    {
+        reportsBase = Path.GetFullPath(reportsBase);
+        PrivateFiles.RejectLinks(reportsBase);
+        // No report may be inside ANY session root, including an old orphan.
+        for (var dir = new DirectoryInfo(reportsBase); dir != null; dir = dir.Parent)
+            if (dir.Name.StartsWith("RDT-", StringComparison.OrdinalIgnoreCase)) throw new RdtException("REPORT_PATH_UNSAFE");
+        if (string.Equals(Path.GetFullPath(tempBase).TrimEnd(Path.DirectorySeparatorChar), reportsBase.TrimEnd(Path.DirectorySeparatorChar), StringComparison.OrdinalIgnoreCase))
+            throw new RdtException("REPORT_PATH_UNSAFE");
+        Directory.CreateDirectory(reportsBase);
+        var path = Path.Combine(reportsBase, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_" + Guid.NewGuid().ToString("N")[..8]);
+        PrivateFiles.CreateDirectory(path);
+        return new Report(path);
+    }
+
+    public void Complete(bool isMock, Guid? sessionId, bool runtimeStarted, int? runtimeExit, bool cleanupComplete, FailureCode error)
+    {
+        var content = $"""
+        # Remote Diagnostic Toolkit
+
+        Version: {RdtInfo.Version}
+        Provider: G
+        Mode: {RdtInfo.Mode}
+        Runtime: {(isMock ? "MOCK (no diagnostics performed)" : "UNVALIDATED (disabled)")}
+        Session: {sessionId?.ToString("N") ?? "not created"}
+        Runtime started: {runtimeStarted}
+        Runtime exit: {runtimeExit?.ToString() ?? "none"}
+        Cleanup complete: {cleanupComplete}
+        Result: {error}
+
+        This report contains lifecycle metadata only. It is not a diagnosis or a proof of system health.
+        """;
+        PrivateFiles.WriteNew(Path.Combine(DirectoryPath, "summary.md"), Encoding.UTF8.GetBytes(content));
+    }
+}
