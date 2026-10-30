@@ -1,4 +1,6 @@
-# 架构
+# 架构（V0.1 冻结实现）
+
+> 本页描述冻结的 V0.1 Mock/READ ONLY 实现。**SUPERSEDED BY PRODUCT DIRECTION DECISION：** “下一阶段只读能力校验”不再是默认产品方向。V0.2 默认目标为完整 YOLO Windows 运维 Agent，以 `agent-server --stdio` 为生产候选；RDT 负责凭据、固定身份、Profile/Session、传输、清理和报告。READ ONLY 为未来可选模式，不新建 Windows 只读采集层。当前资格状态及生命周期阻塞见 [Phase 2](RUNTIME_QUALIFICATION_YOLO.md)，生产 Adapter 仍关闭。
 
 RDT 是独立凭据与运行生命周期包装层。Agent 属于外部 runtime，RDT 不实现 Shell、工具执行器或推理循环。
 
