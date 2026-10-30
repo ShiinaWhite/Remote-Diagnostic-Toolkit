@@ -1,0 +1,11 @@
+{
+  "upstreamRepository": "https://github.com/zai-org/zcode",
+  "upstreamCommit": "3c5b227649371507ddc4eb46ac5133afe6db1cab",
+  "cliVersion": "0.17.0",
+  "filename": "zcode-windows-x64.exe",
+  "sha256": "f40f4b6c8709ba2cc89ea000c3a6d97e8680ee4233720f737b6b7a506417ddf8",
+  "builtinFilename": "zcode-builtin.json",
+  "builtinSha256": "e4e8e3527fa131195e3dc009d4fac9e5b403834281e9ecdddaa68850dc2cb7c0",
+  "builtinUpstreamPath": "config/provider/zcode-builtin.test.json",
+  "qualificationCommit": "89dcc2c02952de45d5929da8219bedefc0068242"
+}

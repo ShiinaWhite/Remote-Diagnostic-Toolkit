@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <InternalsVisibleTo Include="Rdt.Tests" />
+    <InternalsVisibleTo Include="Rdt.RuntimeAcceptance" />
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.7.0" />
   </ItemGroup>
 </Project>

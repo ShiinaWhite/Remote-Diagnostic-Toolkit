@@ -15,6 +15,8 @@ public static class Program
 {
     public static async Task<int> Main(string[] args)
     {
+        Console.InputEncoding = new UTF8Encoding(false);
+        Console.OutputEncoding = new UTF8Encoding(false);
         if (args.FirstOrDefault() == "__mock-runtime") return await MockChild.RunAsync(args[1..]);
         using var cancel = new CancellationTokenSource();
         ConsoleCancelEventHandler handler = (_, e) => { e.Cancel = true; cancel.Cancel(); };
@@ -34,8 +36,8 @@ public static class Program
         if (stale.Count > 0) await output.WriteLineAsync($"Inactive temporary sessions: {stale.Count}. Use cleanup-stale to clean owned sessions.");
         if (args.Length == 0 || args is ["help"] or ["--help"])
         {
-            await output.WriteLineAsync("Commands: demo | credential-init <file> | run --mock <credential-file> | cleanup-stale");
-            await output.WriteLineAsync("Provider: G | Mode: READ ONLY | Runtime: MOCK only in V0.1");
+            await output.WriteLineAsync("Commands: run <credential-file> | credential-init <file> | demo | run --mock <credential-file> | cleanup-stale");
+            await output.WriteLineAsync("Provider: G | Mode: YOLO | Runtime: fixed Windows x64 stdio");
             return 0;
         }
         if (args is ["cleanup-stale"])
@@ -69,6 +71,24 @@ public static class Program
                 if (confirm != null) CryptographicOperations.ZeroMemory(confirm);
                 if (secret != null) CryptographicOperations.ZeroMemory(secret);
             }
+        }
+        if (args is ["run", var productionCredential])
+        {
+            var options = GProviderOptions.Load(Path.Combine(AppContext.BaseDirectory, "config", "provider-g.json"));
+            var pin = input.Read("Operator PIN: ", cancellationToken);
+            try
+            {
+                var runtime = new ZcodeRuntime(options, token => ReadTaskAsync(Console.In, output, token), output.WriteLine);
+                var runner = new DiagnosticRunner(new CredentialVault(), new GProviderAdapter(options), runtime);
+                var result = await runner.RunAsync(Path.GetFullPath(productionCredential), pin,
+                    Path.Combine(Environment.CurrentDirectory, "Reports"), cancellationToken: cancellationToken,
+                    unlocked: () => output.WriteLine("Credential unlocked."));
+                await output.WriteLineAsync($"Cleanup: {(result.CleanupComplete ? "complete" : "incomplete")}");
+                await output.WriteLineAsync($"Report: {result.ReportPath}");
+                await output.WriteLineAsync($"Result: {result.Error}");
+                return result.Success ? 0 : result.Error == Rdt.Reporting.FailureCode.Cancelled ? 130 : 1;
+            }
+            finally { CryptographicOperations.ZeroMemory(pin); }
         }
         string credential;
         string? demoRoot = null;
@@ -116,6 +136,21 @@ public static class Program
                 File.Delete(credential);
                 Directory.Delete(demoRoot);
             }
+        }
+    }
+
+    internal static async Task<string> ReadTaskAsync(TextReader reader, TextWriter output, CancellationToken token)
+    {
+        await output.WriteLineAsync("\nEnter diagnostic task.\nFinish with a line containing only:\n.run\n");
+        await output.WriteAsync("RDT > "); await output.FlushAsync(token);
+        var task = new StringBuilder();
+        while (true)
+        {
+            var line = await reader.ReadLineAsync(token).AsTask().WaitAsync(token);
+            if (line == null) throw new RdtException("TASK_REQUIRED");
+            if (line == ".run") return task.ToString();
+            if (task.Length + line.Length > 1_000_000) throw new RdtException("CLI_INPUT_INVALID");
+            task.AppendLine(line);
         }
     }
 }

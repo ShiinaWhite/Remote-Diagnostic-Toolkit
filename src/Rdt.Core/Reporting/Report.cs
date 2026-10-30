@@ -30,8 +30,8 @@ public sealed class Report
 
         Version: {RdtInfo.Version}
         Provider: G
-        Mode: {RdtInfo.Mode}
-        Runtime: {(isMock ? "MOCK (no diagnostics performed)" : "UNVALIDATED (disabled)")}
+        Mode: {(isMock ? "READ ONLY" : "YOLO")}
+        Runtime: {(isMock ? "MOCK (no diagnostics performed)" : "FIXED ZCODE STDIO")}
         Session: {sessionId?.ToString("N") ?? "not created"}
         Runtime started: {runtimeStarted}
         Runtime exit: {runtimeExit?.ToString() ?? "none"}

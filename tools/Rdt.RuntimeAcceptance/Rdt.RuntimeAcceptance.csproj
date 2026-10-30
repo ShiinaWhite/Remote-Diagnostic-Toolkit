@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Rdt.Core/Rdt.Core.csproj" />
+    <Content Include="../../runtime/zcode-builtin.json" Link="runtime/zcode-builtin.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../runtime/zcode-windows-x64.exe" Link="runtime/zcode-windows-x64.exe" CopyToOutputDirectory="PreserveNewest" Condition="Exists('../../runtime/zcode-windows-x64.exe')" />
+    <Content Include="../../config/provider-g.json" Link="config/provider-g.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../scripts/first-real-task.txt" Link="first-real-task.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

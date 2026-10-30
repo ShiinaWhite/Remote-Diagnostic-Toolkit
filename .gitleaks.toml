@@ -1,0 +1,10 @@
+title = "RDT public source"
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Unmodified upstream inventory maps source paths to public SHA-256 hashes"
+condition = "AND"
+paths = ['''(?:^|/)third-party/zcode/inventory\.json$''']
+regexTarget = "line"
+regexes = ['''^\s*"[^"]+": "[0-9a-f]{64}",?\s*$''']

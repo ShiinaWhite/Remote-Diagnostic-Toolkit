@@ -312,10 +312,10 @@ public class FoundationTests(FoundationFixture f) : IClassFixture<FoundationFixt
     }
 
     [Fact]
-    public async Task RealRuntimeIsFailClosedAndStillCleans()
+    public async Task MissingProductionRuntimeIsFailClosedAndStillCleans()
     {
         var r = await Runner(new ZcodeRuntime()).RunAsync(f.Credential, FoundationFixture.Pin(), f.Reports, f.Root);
-        Assert.Equal(FailureCode.RuntimeUnvalidated, r.Error); Assert.False(r.RuntimeStarted); Assert.True(r.CleanupComplete);
+        Assert.Equal(FailureCode.RuntimeMissing, r.Error); Assert.False(r.RuntimeStarted); Assert.True(r.CleanupComplete);
     }
 
     [Fact]

@@ -1,0 +1,7 @@
+{
+  "schemaVersion": 1,
+  "endpointProfile": "bigmodel-coding-plan",
+  "baseUrl": "https://open.bigmodel.cn/api/coding/paas/v4",
+  "modelId": "glm-5.3-flash",
+  "apiSchema": "openai-chat-completions"
+}

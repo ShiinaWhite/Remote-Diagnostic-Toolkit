@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AnalysisLevel>latest</AnalysisLevel>
-    <Version>0.1.0</Version>
+    <Version>0.3.0</Version>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <NuGetLockFilePath Condition="'$(RuntimeIdentifier)' != ''">$(MSBuildProjectDirectory)/packages.$(RuntimeIdentifier).lock.json</NuGetLockFilePath>
     <Deterministic>true</Deterministic>

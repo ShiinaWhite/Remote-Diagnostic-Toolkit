@@ -15,6 +15,7 @@ public sealed class DiagnosticSession : IDisposable
     public string Workspace => Path.Combine(Root, "workspace");
     public string Runtime => Path.Combine(Root, "runtime");
     public string ProviderFile => Path.Combine(Data, ".zcode", "v2", "provider_config.json");
+    public string BuiltinFile => Path.Combine(Data, "zcode-builtin.json");
     private FileStream? lease;
 
     private DiagnosticSession(string tempBase, Guid id) { Id = id; Root = Path.Combine(Path.GetFullPath(tempBase), "RDT-" + id.ToString("N")); }
@@ -113,6 +114,25 @@ public sealed class DiagnosticSession : IDisposable
           "hooks": { "enabled": false }
         }
         """));
+    }
+
+    public void WriteProductionRuntimeConfig()
+    {
+        var dir = Path.Combine(Home, ".zcode", "cli");
+        Directory.CreateDirectory(dir);
+        PrivateFiles.WriteNew(Path.Combine(dir, "config.json"), "{\"permission\":{\"mode\":\"yolo\"}}"u8);
+    }
+
+    public IReadOnlyDictionary<string, string> ProductionEnvironment()
+    {
+        var env = new Dictionary<string, string>(EnvironmentVariables(), StringComparer.OrdinalIgnoreCase);
+        var windows = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+        env["PATH"] = string.Join(';', Path.Combine(windows, "System32"), windows,
+            Path.Combine(windows, "System32", "WindowsPowerShell", "v1.0"));
+        env["PATHEXT"] = ".COM;.EXE;.BAT;.CMD";
+        env["ComSpec"] = Path.Combine(windows, "System32", "cmd.exe");
+        env["ZCODE_BUILTIN_PROVIDER_CONFIG_FILE"] = BuiltinFile;
+        return env;
     }
 
     public void Dispose() { lease?.Dispose(); lease = null; }

@@ -38,7 +38,7 @@ public sealed class DiagnosticRunner(CredentialVault vault, IProviderAdapter pro
         Report report;
         try { report = Report.Create(reportsBase, tempBase); }
         catch { CryptographicOperations.ZeroMemory(pin); throw; }
-        using var audit = new AuditLog(Path.Combine(report.DirectoryPath, "session.log"));
+        using var audit = new AuditLog(Path.Combine(report.DirectoryPath, "session.log"), runtime.IsMock);
         audit.Write(AuditEvent.Started);
         try
         {
@@ -49,17 +49,23 @@ public sealed class DiagnosticRunner(CredentialVault vault, IProviderAdapter pro
             unlocked?.Invoke();
             session = DiagnosticSession.Create(tempBase);
             audit.Write(AuditEvent.SessionCreated, session.Id);
-            session.WriteRuntimeConfig();
+            if (runtime.IsMock) session.WriteRuntimeConfig();
+            else session.WriteProductionRuntimeConfig();
             provider.WriteTemporaryConfig(session, secret);
-            CryptographicOperations.ZeroMemory(secret);
             audit.Write(AuditEvent.ProviderConfigured, session.Id);
-            var result = await runtime.RunAsync(session, () => { started = true; audit.Write(AuditEvent.RuntimeStarted, session.Id); }, cancellationToken);
+            void OnStarted() { started = true; audit.Write(AuditEvent.RuntimeStarted, session.Id); }
+            var running = runtime is ZcodeRuntime production
+                ? production.RunWithSecretAsync(session, secret, OnStarted, cancellationToken)
+                : runtime.RunAsync(session, OnStarted, cancellationToken);
+            CryptographicOperations.ZeroMemory(secret);
+            var result = await running;
             runtimeExit = result.ExitCode;
             failure = result.Cancelled ? FailureCode.Cancelled : result.ExitCode == 0 ? FailureCode.None : FailureCode.RuntimeFailure;
             audit.Write(AuditEvent.RuntimeExited, session.Id, result.ExitCode, failure);
         }
         catch (RdtException e) when (e.Code == "CREDENTIAL_UNLOCK_FAILED") { failure = FailureCode.CredentialRejected; }
         catch (RdtException e) when (e.Code == "RUNTIME_NOT_VALIDATED") { failure = FailureCode.RuntimeUnvalidated; }
+        catch (RdtException e) { failure = FailureCodes.FromRuntime(e.Code); }
         catch (OperationCanceledException) { failure = FailureCode.Cancelled; }
         catch (Exception) { failure = FailureCode.OperationFailed; } // Never serialize exception text.
         finally

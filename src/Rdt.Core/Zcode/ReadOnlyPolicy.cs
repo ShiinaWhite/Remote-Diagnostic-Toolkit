@@ -6,7 +6,8 @@ namespace Rdt.Zcode;
 
 public static class ReadOnlyPolicy
 {
-    // Defense in depth for the pinned contract. NOT a verified exhaustive list for an arbitrary build.
+    // Historical READ ONLY mock/research contract. Production uses ZcodeRuntime's
+    // YOLO stdio launch and never calls this prompt/denylist path.
     public const string DisallowedTools = "Bash Write Edit ApplyPatch NotebookEdit Agent Task Skill EnterPlanMode ExitPlanMode AskUserQuestion WebFetch WebSearch SendMessage ReplyToChannel CreateWorkflow AmendWorkflow SaveWorkflow ResumeWorkflowRun FillWorkflowHole ResolveWorkflowQuestion CronCreate CronUpdate CronDelete";
 
     public static ProcessStartInfo CreateStartInfo(string executable, DiagnosticSession session, string prompt)

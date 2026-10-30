@@ -7,11 +7,28 @@ namespace Rdt.Providers;
 
 public sealed record GProviderOptions(string BaseUrl, string ModelId)
 {
+    public int SchemaVersion { get; init; } = 1;
+    public string ApiSchema { get; init; } = "openai-chat-completions";
+    public string EndpointProfile { get; init; } = "custom";
+    public static GProviderOptions Load(string file)
+    {
+        try
+        {
+            var options = JsonSerializer.Deserialize<GProviderOptions>(File.ReadAllBytes(file),
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? throw new RdtException("PROVIDER_OPTIONS_INVALID");
+            options.Validate();
+            return options;
+        }
+        catch (RdtException) { throw; }
+        catch { throw new RdtException("PROVIDER_OPTIONS_INVALID"); }
+    }
     public void Validate()
     {
         if (!Uri.TryCreate(BaseUrl, UriKind.Absolute, out var uri) || uri.Scheme != "https" ||
             !string.IsNullOrEmpty(uri.UserInfo) || !string.IsNullOrEmpty(uri.Query) || !string.IsNullOrEmpty(uri.Fragment) ||
-            string.IsNullOrWhiteSpace(ModelId) || ModelId.Length > 128 || ModelId.Any(char.IsControl))
+            string.IsNullOrWhiteSpace(ModelId) || ModelId.Length > 128 || ModelId.Any(char.IsControl) ||
+            SchemaVersion != 1 || ApiSchema != "openai-chat-completions" ||
+            string.IsNullOrWhiteSpace(EndpointProfile) || EndpointProfile.Length > 64 || EndpointProfile.Any(char.IsControl))
             throw new RdtException("PROVIDER_OPTIONS_INVALID");
     }
 }

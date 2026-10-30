@@ -1,0 +1,18 @@
+这是 Remote Diagnostic Toolkit 的首次真实端到端验收。
+只操作当前 RDT Session workspace 和读取系统信息。不要扩大任务范围。
+
+按顺序完成以下任务，每一步使用单独的前台工具调用，等待完成后继续。
+在 PowerShell 操作前按 RDT runtime contract 设置 UTF-8。
+
+1. 使用 PowerShell 查询 Windows 版本和 PowerShell 版本，并打印 RDT_REAL_SYSTEM_OK。
+2. 使用 PowerShell 在当前 workspace 创建 rdt-real-test.txt，使用 UTF-8 无 BOM 写入完全一致的内容（不追加换行）：
+山西晋铁源-真实G端到端测试
+确认文件存在后打印 RDT_REAL_CREATED，并保持文件存在，等待下一次工具调用。
+3. 使用 Read 工具读取该文件；然后使用单独的 PowerShell 工具调用读取 UTF-8 内容并进行严格相等比较。比较成功后打印：
+RDT_REAL_VERIFIED:山西晋铁源-真实G端到端测试
+失败则报错并停止，不要打印成功标记。
+4. 使用 PowerShell 删除该测试文件，确认不存在后打印 RDT_REAL_DELETED。
+5. 不修改注册表、服务、网络、安全设置或系统文件。
+6. 最后用中文总结实际执行结果。
+
+这些标记用于本次验收，请只在对应检查成功后从工具输出，不要用模型文字代替执行。

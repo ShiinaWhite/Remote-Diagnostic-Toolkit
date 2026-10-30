@@ -1,8 +1,8 @@
-name: V0.1 foundation CI
+name: RDT production CI (no real API)
 
 on:
   push:
-    branches: [main, v0.2-runtime-qualification]
+    branches: [main, v0.2-runtime-qualification, v0.3-production-runtime]
   pull_request:
     branches: [main]
 
@@ -26,6 +26,8 @@ jobs:
         run: dotnet build Rdt.slnx -c Release --no-restore
       - name: Mock foundation tests (no API key)
         run: dotnet test Rdt.slnx -c Release --no-build --no-restore
+      - name: Secret scan (public candidates and available Git objects)
+        run: python scripts/secret-scan.py
       - name: Locked restore of developer qualification bridge
         run: dotnet restore tools/Rdt.Qualification/Rdt.Qualification.csproj --locked-mode
       - name: Build developer qualification bridge

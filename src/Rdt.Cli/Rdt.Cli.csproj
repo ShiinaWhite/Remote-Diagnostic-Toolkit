@@ -4,4 +4,14 @@
     <AssemblyName>rdt</AssemblyName>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../Rdt.Core/Rdt.Core.csproj" /></ItemGroup>
+  <ItemGroup><InternalsVisibleTo Include="Rdt.Tests" /></ItemGroup>
+  <ItemGroup>
+    <Content Include="../../NOTICE.md;../../THIRD-PARTY-NOTICES.md" Link="%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../config/runtime-identity.json" Link="config/runtime-identity.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../third-party/bouncycastle/**" Link="third-party/bouncycastle/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../third-party/dotnet/**" Link="third-party/dotnet/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../config/provider-g.json" Link="config/provider-g.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../runtime/zcode-builtin.json" Link="runtime/zcode-builtin.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../../third-party/zcode/**" Link="third-party/zcode/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>

@@ -1,0 +1,7 @@
+* text=auto eol=lf
+/runtime/zcode-builtin.json -text -whitespace
+/third-party/zcode/** -text -whitespace
+# Upstream notices contain a literal seven-equals Setext license heading.
+/third-party/zcode/THIRD-PARTY-NOTICES.md conflict-marker-size=32
+/third-party/bouncycastle/LICENSE.md -text -whitespace
+/third-party/dotnet/*.TXT -text -whitespace

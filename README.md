@@ -1,133 +1,116 @@
 # Remote Diagnostic Toolkit · RDT
 
-```text
-V0.1 foundation baseline (frozen)
-STATUS = PARTIAL
-Mock foundation PASS
-Real ZCode diagnostic runtime NOT ENABLED
-```
+V0.3 production runtime adapter，默认 **YOLO**。RDT 管理加密凭据、固定 runtime 身份、私有 Profile/Session、stdio、Windows Job 生命周期、清理和安全元数据报告。Agent 的任务边界由操作者提示词定义。
 
-Windows 运维 wrapper/runtime 的 V0.1 工程地基。只提供 **READ ONLY** 模式，当前使用明确标识的 Mock 子进程验收。**真实诊断暂不可用**，没有模型 API 请求，也不使用客户的现有登录态。
+V0.2 qualification 已通过外部 Review，冻结于 `89dcc2c02952de45d5929da8219bedefc0068242`。V0.3 在 `v0.3-production-runtime` 开发，等待外部 Review；首次真实 G 验收的结果单独记录，不以本地假 Provider 通过代替。RDT **LICENSE = UNDECIDED**。
 
-已完成：CLI、PIN 加密凭据、隔离 session、G adapter、runtime 接口和启动契约、Mock 子进程、审计与报告、清理和自动化测试。D 为预留接口。真实 runtime 入口默认且强制关闭；无开关绕过。
+## 构建与发布
 
-当前公开版本冻结为 V0.1 foundation baseline，不具备真实 AI 排障能力。本仓库只发布源码；不包含编译产物、本机运行报告、测试结果、凭据或临时 profile。测试源码中的固定 Key、PIN 和密码样例均为虚构、不可用于任何服务的 fixture 数据。
-
-## 构建与测试
-
-开发需要 .NET 10 SDK（当前固定 10.0.401；允许同 feature band 的更新补丁），首次 restore 访问 nuget.org。客户端发布后无需 SDK、Python、Git 或 Node。
-
-在项目目录使用 PowerShell 5.1 或 7：
+需要 Windows x64 和 .NET 10 SDK（见 `global.json`）。客户端发布后无需预装 .NET、Node、Python 或 Git。
 
 ```powershell
 dotnet restore Rdt.slnx --locked-mode
 dotnet build Rdt.slnx -c Release --no-restore
-dotnet test Rdt.slnx -c Release --logger 'trx;LogFileName=rdt-tests.trx' --results-directory TestResults
+dotnet test Rdt.slnx -c Release --no-build --no-restore
 ```
 
-也可执行 `scripts/build.ps1` / `scripts/test.ps1`，按本机现有脚本策略运行；不要为本项目修改 ExecutionPolicy。
-
-## 启动与演示
+将已资格验证的 SEA 放在 `runtime/zcode-windows-x64.exe`，执行：
 
 ```powershell
-.\src\Rdt.Cli\bin\Release\net10.0\rdt.exe help
-.\src\Rdt.Cli\bin\Release\net10.0\rdt.exe demo
+./scripts/publish.ps1
+./artifacts/win-x64/rdt.exe help
 ```
 
-`demo` 要求输入本次测试 PIN（8–128 UTF-8 字节）。输入不回显；只用内置的无效测试 Key 临时建立加密凭据，再解锁、启动 Mock、导出报告并删除临时材料。它不是诊断，也不验证 Provider 的联网能力。退出码 0 表示 Mock 生命周期验收成功，1 表示失败，130 表示取消。
+发布脚本验证 executable 和 builtin SHA-256，生成完整独立目录。固定 runtime 不提交 Git、不自动下载、不自动更新；不能通过 CLI 指定其他 executable。请复制整个发布目录，包括 runtime、config、third-party 和 NOTICE。不要为本项目修改系统 ExecutionPolicy。
 
-终端示例：
+固定上游 `3c5b227649371507ddc4eb46ac5133afe6db1cab`，CLI `0.17.0`：
+
+```text
+runtime SHA-256 = f40f4b6c8709ba2cc89ea000c3a6d97e8680ee4233720f737b6b7a506417ddf8
+builtin SHA-256 = e4e8e3527fa131195e3dc009d4fac9e5b403834281e9ecdddaa68850dc2cb7c0
+```
+
+更换 runtime 以后需要重新 qualification。现有 qualification 不再扩展。
+
+## 凭据与真实任务
+
+先核对 `config/provider-g.json`（发布后在 `artifacts/win-x64/config`）。它仅含非秘密配置，与凭据文件分开。当前操作者选择国内 BigModel Coding Plan，默认 Base URL 为 `https://open.bigmodel.cn/api/coding/paas/v4`，model ID 为 `glm-5.3-flash`，schema 为 `openai-chat-completions`。国际与国内、Coding Plan 与按量 endpoint 必须匹配 Key 来源。当前官方来源和核对说明见 [生产契约](docs/PRODUCTION_RUNTIME.md)。
+
+在本机交互终端输入 Key 和 PIN；不要通过聊天、参数、环境变量、源码或 .env 提供秘密：
+
+```powershell
+./artifacts/win-x64/rdt.exe credential-init ./operator.rdt
+./artifacts/win-x64/rdt.exe run ./operator.rdt
+```
+
+PIN 输入不回显，8–128 UTF-8 字节；凭据使用 scrypt 和 AES-256-GCM，不覆盖已有文件，父目录必须存在。建议使用 RDT 专用且可单独吊销的 Key。忘记 PIN 无恢复接口。
 
 ```text
 Remote Diagnostic Toolkit
-RDT 0.1.0
 Operator PIN:
 Credential unlocked.
 Provider: G
-Mode: READ ONLY
+Mode: YOLO
+Runtime: READY
 Session: TEMP
-Runtime: MOCK
-Cleanup: complete
-Report: ...\Reports\...
-Result: None
+
+Enter diagnostic task.
+Finish with a line containing only:
+.run
+
+RDT >
 ```
 
-PIN 仅从交互终端读取。输入重定向会被拒绝，不能通过参数或环境变量提供 PIN/Key。自动化测试通过 `ISecretInput` 注入假凭据，并单独运行实际子进程。
+支持多行任务；单独一行 `.run` 提交。任务经 UTF-8 NDJSON `session/send.content` 发送，不进入 RDT 或 ZCode 的 argv/environment。RDT 添加简短 PowerShell UTF-8 运行约定，保留原任务文字。终端显示工具名称、工作状态和最终回答；不会永久记录完整 protocol frame 或模型输出。
 
-## 加密凭据命令
+默认 YOLO 具有当前用户的正常运维能力。没有命令分类器、逐次人工修改批准或 REPAIR 模式；Job 仅拥有生命周期，仅设置 `KILL_ON_JOB_CLOSE`，没有资源/权限/进程数限制。显式 `session/create.mode=yolo`，不设置 toolAllowlist/toolDenylist。
+
+## Session、退出和报告
+
+所有 Profile、缓存、日志和个人 Provider 明文配置仅位于 `%TEMP%/RDT-<GUID>`。环境由 Session 路径和 Windows system-only PATH 重建，不继承用户 PATH、API keys、NODE_OPTIONS 或 ZCODE overrides。固定 builtin 与 personal 配置同时指定，保留已经验证的控制面/CDN refresh 消除路径。
+
+runtime SHA 不匹配、Job 创建/配置/归属验证失败都会拒绝启动协议。Ctrl+C、超时、EOF、协议错误和模型错误进入相同清理路径：尝试 session/stop，关闭 stdin，等待退出，必要时 Terminate Job，验证成员退出后清理 Session。默认单次 Session 总超时 15 分钟，含任务输入时间。
+
+`Reports/<timestamp>_<random>/summary.md` 与 `session.log` 只保留生命周期元数据，不保存任务、模型输出、业务数据或上游缓存。PIN/Key 不写日志。应用层删除不宣称物理不可恢复；断电/强杀后遗留 Session 可显式清理：
 
 ```powershell
-.\src\Rdt.Cli\bin\Release\net10.0\rdt.exe credential-init .\config\operator.rdt
-.\src\Rdt.Cli\bin\Release\net10.0\rdt.exe run --mock .\config\operator.rdt
+./artifacts/win-x64/rdt.exe cleanup-stale
 ```
 
-`credential-init` 是显式创建长期**加密**文件的命令，需要 PIN、确认 PIN 和 G Key；不会覆盖已有文件，父目录必须存在。本阶段无需使用真实 Key。该加密文件由操作者保管，session cleanup 不会删除它。忘记 PIN 无恢复接口；可用长口令提高抵抗离线猜测的能力。
+清理仅接受超过 24 小时、合法所有权标记、无活动租约且无链接的 Session。加密凭据和 Reports 由操作者另行保管。
 
-`run --mock` 接受已有加密文件并执行工程验收。Mock 使用 `example.invalid` 与测试模型，完全不联网。`config/provider-g.example.json` 是未来真实接入的无秘密示例，本版 CLI 不加载该文件，也不承诺示例模型可调用。
+## 本地验收
 
-## 临时数据与报告
-
-```text
-%TEMP%\RDT-<GUID>\
-  owner.json / .lease
-  home\       独立用户目录与运行配置
-  data\       个人 provider 与其他数据
-  workspace\  全新空工作目录
-  runtime\    临时文件和内部日志
-
-<启动工作目录>\Reports\YYYY-MM-DD_HH-mm-ss_<短随机值>\
-  summary.md
-  session.log
-```
-
-报告加随机后缀以避免并发覆盖。只导出生命周期元数据；不导出模型输出、原始业务数据或上游 session/cache。
-
-正常退出、子进程失败、Ctrl+C、超时都会进入 finally 清理。启动时提醒可识别的旧 session；显式运行以下命令，只清理超过 24 小时、合法标记、无活动租约的目录：
+普通 CI 不需要真实 Key，不调用真实模型。原来的 READ ONLY Mock 仍可用于地基验收：
 
 ```powershell
-.\src\Rdt.Cli\bin\Release\net10.0\rdt.exe cleanup-stale
+./artifacts/win-x64/rdt.exe demo
+./artifacts/win-x64/rdt.exe run --mock ./operator.rdt
 ```
 
-不符合所有权/路径检查或包含链接的目录保持原状；cleanup 失败会在报告中标记。断电、强杀和系统故障无法保证立即清理。删除为应用层删除，不宣称物理不可恢复。Reports 和显式加密凭据需要操作者另行保管、导出或删除。
-
-## 发布
+固定 runtime 的生产 Adapter 假 Provider smoke（本地、loopback、不转发）：
 
 ```powershell
-dotnet publish src/Rdt.Cli/Rdt.Cli.csproj -c Release -r win-x64 --self-contained true -o artifacts/win-x64
-.\artifacts\win-x64\rdt.exe help
-.\artifacts\win-x64\rdt.exe demo
+dotnet restore tools/Rdt.RuntimeAcceptance/Rdt.RuntimeAcceptance.csproj --locked-mode
+python scripts/production-smoke.py
 ```
 
-也可运行 `scripts/publish.ps1`。发布的是独立运行目录，请复制整个目录。仅 RDT 无需预装 .NET；当前并未捆绑上游 Agent。单文件、签名、更多 Windows/Server/ARM64 兼容性留待后续实测。
+首次真实验收必须在构建、自动化测试和 secret scan 通过后，由操作者先运行 credential-init。开发验收工具复用生产 Adapter、Vault 和 Job；PIN 同样在本机隐藏输入，自动发送 [限定 synthetic 任务](scripts/first-real-task.txt)，只保存布尔/计数证据：
 
-## 工程结构
-
-```text
-src/
-  Rdt.Cli/                 终端命令、取消处理、Mock child
-  Rdt.Core/
-    Auth/ Credentials/     隐藏输入与版本化凭据
-    Session/ Cleanup/      隔离目录、租约、受限清理
-    Providers/ Zcode/      G/D 接口与上游契约
-    Runtime/               生命周期编排
-    Reporting/ Common/     元数据审计与私有文件工具
-tests/Rdt.Tests/
-config/ scripts/ docs/ Reports/
+```powershell
+dotnet build tools/Rdt.RuntimeAcceptance/Rdt.RuntimeAcceptance.csproj -c Release --no-restore
+dotnet tools/Rdt.RuntimeAcceptance/bin/Release/net10.0/Rdt.RuntimeAcceptance.dll real ./operator.rdt
 ```
 
-详细设计与实测结果：
+它验证 G → tool call → PowerShell → 中文文件创建/读取/删除 → continuation → 最终回答，并检查真实 Profile、Job 和 Session。真实验收不进入 CI；网络观察的实际范围单独披露。
 
-- [架构](docs/ARCHITECTURE.md)
-- [官方 runtime 调查](docs/ZCODE_RUNTIME_INVESTIGATION.md)
-- [安全模型](docs/SECURITY_MODEL.md)
-- [工程决策](docs/DECISIONS.md)
-- [V0.1 验收](docs/ACCEPTANCE.md)
-- [V0.1 公开发布冻结记录](docs/PUBLICATION_REVIEW.md)
+## 文档与归属
 
-## 后续真实接入
+- [生产 runtime 契约](docs/PRODUCTION_RUNTIME.md)
+- [V0.2 YOLO 资格记录](docs/RUNTIME_QUALIFICATION_YOLO.md)
+- [Job / UTF-8 资格记录](docs/RUNTIME_LIFECYCLE_UTF8_QUALIFICATION.md)
+- [历史网络观察与范围](docs/ZCODE_NETWORK_BEHAVIOR.md)
+- [历史 V0.1 架构](docs/ARCHITECTURE.md)、[安全模型](docs/SECURITY_MODEL.md)、[验收](docs/ACCEPTANCE.md)
+- [ZCode 原始许可证与 notices](third-party/zcode/README.md)、[第三方归属](THIRD-PARTY-NOTICES.md)
 
-V0.2 正在验证 **完整 Windows 运维 Agent（YOLO）**，生产候选采用 `agent-server --stdio`，任务经 stdin 协议发送。RDT 负责加密凭据、固定 runtime 身份、Profile/Session 隔离、传输、清理和报告；READ ONLY 留作未来可选模式。V0.1 Mock 功能与生产 `ZcodeRuntime => RUNTIME_NOT_VALIDATED` 保持不变。
-
-固定官方源码 SEA、Phase 1 READ ONLY 历史实验见 [Phase 1 资格记录](docs/RUNTIME_QUALIFICATION.md)。新方向与真实 PowerShell、受控写入、隔离及取消实验见 [Phase 2 YOLO 资格记录](docs/RUNTIME_QUALIFICATION_YOLO.md) 和 [网络观察](docs/ZCODE_NETWORK_BEHAVIOR.md)。本分支只准备开发资格证据，等待外部 Review，不启用真实模型或发布候选二进制。
-
-后续限定范围的 [Job lifetime / UTF-8 资格测试](docs/RUNTIME_LIFECYCLE_UTF8_QUALIFICATION.md) 验证 Windows Job Object 对正常及 detached 后代进程的生命周期回收，并验证 PowerShell 5.1/7 的显式 UTF-8 中文传输。它不限制 YOLO 工具能力，也没有进入客户发布图或解锁生产 Adapter。
+本阶段仅 G、Windows x64、终端交互；不实现 D、GUI、服务、计划任务、提权、浏览器自动化或远控服务。
