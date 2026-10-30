@@ -12,6 +12,21 @@ public sealed class SessionCleaner
 
     public CleanupResult Clean(string root) => CleanCore(root, null);
 
+    public async Task<CleanupResult> CleanAsync(string root)
+    {
+        // Windows can briefly retain a file/directory handle after process exit.
+        // Each attempt repeats ownership, link and lease validation. Never retry an
+        // active lease, refused path or orphan as if it belonged to this invocation.
+        var result = Clean(root);
+        foreach (var delay in new[] { 50, 100, 200, 400, 800 })
+        {
+            if (result != CleanupResult.Failed) break;
+            await Task.Delay(delay, CancellationToken.None);
+            result = Clean(root);
+        }
+        return result;
+    }
+
     // Only creation rollback can supply the exact marker it just wrote. This is not a
     // public bypass for age checks on sessions discovered on disk.
     internal CleanupResult CleanOwned(string root, SessionMarker owner) => CleanCore(root, owner);

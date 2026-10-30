@@ -56,6 +56,22 @@ public sealed class ZcodeRuntime : IZcodeRuntime
         using var process = new Process { StartInfo = services.StartInfo(session) };
         var processStarted = false;
         var assigned = false;
+        var memberHandles = new Dictionary<int, Process>();
+        void RetainMemberHandles()
+        {
+            foreach (var pid in job.Members())
+            {
+                if (memberHandles.ContainsKey(pid)) continue;
+                Process? member = null;
+                try
+                {
+                    member = Process.GetProcessById(pid);
+                    if (job.Contains(member.SafeHandle)) { memberHandles.Add(pid, member); member = null; }
+                }
+                catch (ArgumentException) { /* Already exited between enumeration and open. */ }
+                finally { member?.Dispose(); }
+            }
+        }
         ZcodeProtocolClient? protocol = null;
         StreamReader? stdoutReader = null, stderrReader = null;
         Task? stderr = null;
@@ -111,6 +127,7 @@ public sealed class ZcodeRuntime : IZcodeRuntime
             {
                 if (processStarted)
                 {
+                    if (assigned) RetainMemberHandles();
                     if (protocol != null && !process.HasExited)
                     {
                         using var stop = new CancellationTokenSource(services.StopTimeout);
@@ -120,8 +137,13 @@ public sealed class ZcodeRuntime : IZcodeRuntime
                     if (assigned)
                     {
                         try { await process.WaitForExitAsync().WaitAsync(services.StopTimeout); }
-                        catch (TimeoutException) { job.Terminate(); }
-                        if (job.Members().Length != 0) job.Terminate();
+                        catch (TimeoutException) { RetainMemberHandles(); job.Terminate(); }
+                        if (job.Members().Length != 0) { RetainMemberHandles(); job.Terminate(); }
+                        // Job accounting and process-object signalling are distinct.
+                        // Retain real handles so child teardown is awaited without PID
+                        // reuse or substituting ancestry for Job membership.
+                        foreach (var member in memberHandles.Values)
+                            await member.WaitForExitAsync().WaitAsync(TimeSpan.FromSeconds(8));
                         var wait = Stopwatch.StartNew();
                         while (job.Members().Length != 0 && wait.Elapsed < TimeSpan.FromSeconds(8)) await Task.Delay(30);
                         JobMembersExited = job.Members().Length == 0;
@@ -135,6 +157,7 @@ public sealed class ZcodeRuntime : IZcodeRuntime
             {
                 try { services.ObserveExit?.Invoke(session); }
                 finally { job.Dispose(); } // Last handle is the kernel backstop even on observation failure.
+                foreach (var member in memberHandles.Values) member.Dispose();
                 if (protocol != null) await protocol.DisposeAsync();
                 if (stderr != null)
                 {

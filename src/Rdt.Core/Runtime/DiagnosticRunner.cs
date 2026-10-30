@@ -75,7 +75,7 @@ public sealed class DiagnosticRunner(CredentialVault vault, IProviderAdapter pro
             session?.Dispose();
             if (session != null)
             {
-                var cleaned = new SessionCleaner(tempBase).Clean(session.Root);
+                var cleaned = await new SessionCleaner(tempBase).CleanAsync(session.Root);
                 cleanupComplete = cleaned is CleanupResult.Complete or CleanupResult.AlreadyAbsent;
                 audit.Write(cleanupComplete ? AuditEvent.CleanupCompleted : AuditEvent.CleanupIncomplete, session.Id);
             }

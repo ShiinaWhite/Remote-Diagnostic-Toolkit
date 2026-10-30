@@ -140,13 +140,31 @@ public class ProductionTests(FoundationFixture f) : IClassFixture<FoundationFixt
         var observer = new InspectingProvider(FoundationFixture.Provider(), s => sessionRoot = s.Root);
         var result = await new DiagnosticRunner(f.Vault, observer, runtime)
             .RunAsync(f.Credential, FoundationFixture.Pin(), f.Reports, f.Root);
-        Assert.Equal(expected, result.Error); Assert.True(result.CleanupComplete); Assert.True(runtime.JobMembersExited);
+        Assert.Equal(expected, result.Error);
+        Assert.True(result.CleanupComplete, "Session cleanup incomplete after " + scenario);
+        Assert.True(runtime.JobMembersExited, "Job members were not confirmed exited after " + scenario);
         Assert.False(Directory.Exists(sessionRoot!));
         var persisted = string.Concat(Directory.GetFiles(result.ReportPath).Select(File.ReadAllText));
         Assert.Contains("YOLO", persisted);
         Assert.DoesNotContain(FoundationFixture.FakeKey, persisted); Assert.DoesNotContain("fixture-secret-must-not-persist", persisted);
         Assert.DoesNotContain("中文任务", persisted);
         if (scenario == "success") { Assert.Contains(output, x => x.Contains("山西晋铁源", StringComparison.Ordinal)); Assert.Contains("[Tool] Bash", output); }
+    }
+
+    [Fact]
+    public async Task CleanupRetriesTransientFileHandleAndRetainsOwnershipChecks()
+    {
+        using var session = DiagnosticSession.Create(f.Root);
+        var file = Path.Combine(session.Workspace, "temporarily-held.txt");
+        File.WriteAllText(file, "fixture");
+        using var held = new FileStream(file, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+        session.Dispose();
+        var cleanup = new SessionCleaner(f.Root).CleanAsync(session.Root);
+        Assert.False(cleanup.IsCompleted);
+        Assert.True(File.Exists(Path.Combine(session.Root, "owner.json")));
+        held.Dispose();
+        Assert.Equal(CleanupResult.Complete, await cleanup);
+        Assert.False(Directory.Exists(session.Root));
     }
 
     [Fact]
