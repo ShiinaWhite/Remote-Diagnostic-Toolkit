@@ -126,4 +126,6 @@ config/ scripts/ docs/ Reports/
 
 ## 后续真实接入
 
+V0.2 第一阶段的开发资格实验已生成固定官方源码 Windows SEA 候选，并以本地 fixture Provider 验证工具面、读取、拒绝调用和官方 stdio 入口。结论为 **PARTIAL**，生产 `ZcodeRuntime` 仍返回 `RUNTIME_NOT_VALIDATED`。Windows 运维能力、headless 前置路径和网络/整机归因缺口见 [资格记录](docs/RUNTIME_QUALIFICATION.md) 与 [网络观察](docs/ZCODE_NETWORK_BEHAVIOR.md)；本阶段未启用真实模型或发布候选二进制。
+
 官方源码有 Windows SEA 构建支持，但本次未取得和实测可信独立 CLI 发行产物。计划模式也不等价于系统级只读沙箱。必须先固定产物、核实配置及工具面、完成真实拒绝测试与隔离验证，才可实现真实启动。详见 runtime 调查末尾的放行条件。

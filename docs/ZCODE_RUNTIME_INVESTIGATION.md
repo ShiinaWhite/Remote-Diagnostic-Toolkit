@@ -1,5 +1,19 @@
 # ZCode runtime 调查（V0.1）
 
+> 下文保留 V0.1 的历史调查。2026-10-30 已重新查询上游并完成 V0.2 第一阶段的固定候选实验，见 [RUNTIME_QUALIFICATION.md](RUNTIME_QUALIFICATION.md) 和 [网络观察](ZCODE_NETWORK_BEHAVIOR.md)。生产 runtime 仍 fail closed。
+
+## V0.2 实测更新
+
+当前官方 HEAD 仍为 `3c5b227649371507ddc4eb46ac5133afe6db1cab`；最新 tag v3.15.1，GitHub Release v3.14.3 仍只有桌面资产。没有沿用未复查的版本。选定该固定官方源码构建 Windows SEA，SHA-256 为 `f40f4b6c8709ba2cc89ea000c3a6d97e8680ee4233720f737b6b7a506417ddf8`。
+
+实测 CLI 版本 0.17.0，根 manifest 3.16.2，PE/Node 版本 24.14.0，builtin cache metadata 为 0.0.0-dev；这些版本域不能互相替代。构建中遇到的依赖资产与 Windows 空格路径问题、手动执行同版本 postject 的精确步骤及 provenance 全部在资格记录中披露，没有改上游源码。
+
+当前 RDT headless 参数契约实测接受；实际 Provider 工具面包含 Read/Glob/Grep 与五个会话状态工具，20 个危险/扩展工具调用被拒绝。纯 stdin 文本不能执行 headless 请求；官方 app-server/agent-server 的 stdio 请求、读取、EOF 退出和在途取消均取得实证。生产协议本次没有切换。
+
+结论为 **PARTIAL**：严格 builtin reads 无法覆盖 Windows 运维 API；headless `.env` 向上发现已确认；`/expert` 特殊命令存在静态 yolo 切换路径（依本阶段禁令未执行）；整机写入归因、完整网络与协议稳定性仍有缺口。现有 `ZcodeRuntime => RUNTIME_NOT_VALIDATED` 保持不变，不建议放行，不需以真实 Key 绕过阻塞。
+
+## V0.1 历史记录
+
 调查日期：2026-10-29。官方仓库：[zai-org/ZCode](https://github.com/zai-org/ZCode)。
 本次通过 GitHub 连接读取默认分支、提交、文档、配置编解码、权限服务和打包源码；没有执行上游安装脚本或二进制。
 

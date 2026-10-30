@@ -2,7 +2,7 @@ name: V0.1 foundation CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, v0.2-runtime-qualification]
   pull_request:
     branches: [main]
 
@@ -26,3 +26,9 @@ jobs:
         run: dotnet build Rdt.slnx -c Release --no-restore
       - name: Mock foundation tests (no API key)
         run: dotnet test Rdt.slnx -c Release --no-build --no-restore
+      - name: Locked restore of developer qualification bridge
+        run: dotnet restore tools/Rdt.Qualification/Rdt.Qualification.csproj --locked-mode
+      - name: Build developer qualification bridge
+        run: dotnet build tools/Rdt.Qualification/Rdt.Qualification.csproj -c Release --no-restore
+      - name: Qualification harness self tests (no candidate runtime or API key)
+        run: python -m unittest discover -s scripts/runtime-qualification -p test_harness.py -v

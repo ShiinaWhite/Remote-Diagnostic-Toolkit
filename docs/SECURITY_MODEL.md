@@ -1,5 +1,7 @@
 # 安全模型
 
+V0.2 的开发 qualification 工具独立于客户 CLI/publish graph，仅执行固定 hash 的官方源码候选和本地合成 Provider。它不解锁生产 `ZcodeRuntime`，不使用真实模型 Key，不构成 OS 沙箱。新增实测与未关闭的边界见 [RUNTIME_QUALIFICATION.md](RUNTIME_QUALIFICATION.md)；不能把局部拒绝测试写成整机隔离保证。
+
 目标是防止普通查看泄露 Key、未持 PIN 者直接使用工具、以及日常运行遗留明文 profile。不防当前用户权限下的恶意进程、管理员/调试器、内存抓取、离线长期暴力破解、恶意改版 runtime 或专业逆向。
 
 ## 凭据

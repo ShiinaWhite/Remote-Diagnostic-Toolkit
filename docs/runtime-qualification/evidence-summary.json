@@ -1,0 +1,1665 @@
+{
+  "status": "PARTIAL",
+  "runtime_identity": {
+    "schema_version": 1,
+    "qualification_only": true,
+    "upstream_repository": "https://github.com/zai-org/ZCode",
+    "upstream_commit": "3c5b227649371507ddc4eb46ac5133afe6db1cab",
+    "upstream_version": "3.16.2",
+    "cli_workspace_version": "0.17.0",
+    "runtime_source": "official-source-win-x64-SEA",
+    "runtime_filename": "zcode-windows-x64.exe",
+    "observed_cli_version": "0.17.0",
+    "windows_file_version": "24.14.0",
+    "windows_product_version": "24.14.0",
+    "authenticode_status": "NotSigned",
+    "observed_builtin_cache_version": "0.0.0-dev",
+    "runtime_sha256": "f40f4b6c8709ba2cc89ea000c3a6d97e8680ee4233720f737b6b7a506417ddf8",
+    "node_version": "24.14.0",
+    "pnpm_version": "10.33.2",
+    "node_archive_sha256": "313fa40c0d7b18575821de8cb17483031fe07d95de5994f6f435f3b345f85c66",
+    "node_executable_sha256": "63c259c81e5d472b5f11c8d506070130cb04a1ecf84b80377a34ed6ec9048088",
+    "pnpm_archive_sha256": "7a7bcf13d7f6ceb3946c03978373d99be9fde1cafc3000bdfed4c4f791167610",
+    "pnpm_archive_integrity": "sha512-qQ+vb+6rca1sblf5Tg/hoS9dzCLNdU20CulZPraj4LaxLjVAIYuzeuCDQEsfLObbKkEh6XmCm0r/lLmfSdoc+A==",
+    "postject_version": "1.0.0-alpha.6",
+    "build_note": "Official build generated SEA blob and assets; invoke the locked postject JS entry directly with the same arguments to avoid upstream Windows .cmd quoting failure in paths with spaces. No upstream source patch.",
+    "source_lock_sha256": "13fd7d47a6d2294cee70a47c846f2a93bbefef5e40990c0d42d8f193b3ed8c7c",
+    "license": "upstream Apache-2.0; upstream NOTICE and THIRD-PARTY-NOTICES required",
+    "production_enabled": false
+  },
+  "case_count": 35,
+  "verdict_counts": {
+    "PASS": 8,
+    "UNAVAILABLE": 1,
+    "DENIED": 20,
+    "DISABLED_CANARY": 1,
+    "NOT_PROVEN": 1,
+    "PASS_REQUEST": 2,
+    "CANCEL_OBSERVED": 1,
+    "ANCESTOR_ENV_LOADED": 1
+  },
+  "cases": [
+    {
+      "case": "version",
+      "status": "PASS",
+      "advertised_tools": [],
+      "provider_requests": 0,
+      "tool_result_count": 0,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {},
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 10,
+      "session_file_roots": {
+        "data": 1,
+        "home": 5,
+        "owner.json": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "help",
+      "status": "PASS",
+      "advertised_tools": [],
+      "provider_requests": 0,
+      "tool_result_count": 0,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {},
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 10,
+      "session_file_roots": {
+        "data": 1,
+        "home": 5,
+        "owner.json": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "doctor",
+      "status": "PASS",
+      "advertised_tools": [],
+      "provider_requests": 0,
+      "tool_result_count": 0,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "TEMP": 2,
+        "LOCALAPPDATA": 8,
+        "USERPROFILE": 8,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 10,
+      "session_file_roots": {
+        "data": 1,
+        "home": 5,
+        "owner.json": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "surface",
+      "status": "PASS",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 1,
+      "tool_result_count": 0,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "LOCALAPPDATA": 2,
+        "USERPROFILE": 2,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443",
+        "124.165.216.52:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "contract",
+      "status": "PASS",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 1,
+      "tool_result_count": 0,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "single_json_output": true,
+      "outside_file_events_by_root": {
+        "LOCALAPPDATA": 12,
+        "USERPROFILE": 12,
+        "TEMP": 2,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "read",
+      "status": "PASS",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "APPDATA": 17,
+        "USERPROFILE": 17,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "glob",
+      "status": "PASS",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "APPDATA": 11,
+        "USERPROFILE": 11,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "grep",
+      "status": "PASS",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "ProgramData": 5,
+        "LOCALAPPDATA": 10,
+        "USERPROFILE": 10
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.205.161:443",
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "system-info",
+      "status": "UNAVAILABLE",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "TEMP": 2,
+        "LOCALAPPDATA": 2,
+        "USERPROFILE": 2,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.205.161:443",
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: WindowsServices"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "write",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "TEMP": 1,
+        "LOCALAPPDATA": 3,
+        "USERPROFILE": 3
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443",
+        "124.165.216.52:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: Write"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "edit",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "TEMP": 2,
+        "LOCALAPPDATA": 2,
+        "USERPROFILE": 2,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: Edit"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "patch",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {},
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: ApplyPatch"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "delete",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "ProgramData": 10,
+        "USERPROFILE": 2
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: Bash"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "cmd",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "USERPROFILE": 19,
+        "TEMP": 4,
+        "LOCALAPPDATA": 17
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: Bash"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "powershell",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "LOCALAPPDATA": 6,
+        "USERPROFILE": 6,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: Bash"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "bash",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "USERPROFILE": 17,
+        "LOCALAPPDATA": 17,
+        "TEMP": 2
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: Bash"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "registry",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "APPDATA": 5,
+        "USERPROFILE": 5,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: Bash"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "agent",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "APPDATA": 11,
+        "USERPROFILE": 27,
+        "TEMP": 8,
+        "LOCALAPPDATA": 12,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: Agent"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "task",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "ProgramData": 5,
+        "USERPROFILE": 7,
+        "LOCALAPPDATA": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443",
+        "124.165.216.52:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: Task"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "skill",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "LOCALAPPDATA": 2,
+        "TEMP": 2,
+        "USERPROFILE": 2,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443",
+        "124.165.216.52:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: Skill"
+      ],
+      "session_file_count_before_cleanup": 672,
+      "session_file_roots": {
+        "data": 7,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "mcp",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "ProgramData": 5,
+        "TEMP": 1,
+        "LOCALAPPDATA": 1,
+        "USERPROFILE": 1
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: mcp__rdt_fixture__write_canary"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "plugin",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: mcp__rdt_fixture_plugin__write_canary"
+      ],
+      "session_file_count_before_cleanup": 672,
+      "session_file_roots": {
+        "data": 7,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "workflow",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: CreateWorkflow"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "cron",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "USERPROFILE": 4,
+        "TEMP": 2,
+        "LOCALAPPDATA": 2,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: CronCreate"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "mode",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "TEMP": 1,
+        "USERPROFILE": 1,
+        "LOCALAPPDATA": 1
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: SetMode"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "exit-plan",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: ExitPlanMode"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "webfetch",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "LOCALAPPDATA": 5,
+        "USERPROFILE": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: WebFetch"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "websearch",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "USERPROFILE": 20,
+        "LOCALAPPDATA": 13,
+        "TEMP": 2,
+        "ProgramData": 5,
+        "APPDATA": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [
+        "Tool not found: WebSearch"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "node-repl",
+      "status": "DENIED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "APPDATA": 11,
+        "USERPROFILE": 11
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [
+        "Tool not found: js"
+      ],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "hook",
+      "status": "DISABLED_CANARY",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "TEMP": 2,
+        "USERPROFILE": 12,
+        "LOCALAPPDATA": 12,
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [
+        "124.165.216.129:443"
+      ],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "stdin",
+      "status": "NOT_PROVEN",
+      "advertised_tools": [],
+      "provider_requests": 0,
+      "tool_result_count": 0,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 1,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "USERPROFILE": 46,
+        "LOCALAPPDATA": 43,
+        "TEMP": 10,
+        "ProgramData": 10
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 5417,
+      "session_file_roots": {
+        "data": 3,
+        "home": 5410,
+        "owner.json": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "protocol",
+      "status": "PASS_REQUEST",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "protocol_result": {
+        "created": true,
+        "accepted": true,
+        "completed": true,
+        "transport": "protocol",
+        "prompt_in_command_line": false,
+        "runtime_mode": "plan"
+      },
+      "outside_file_events_by_root": {
+        "TEMP": 2,
+        "LOCALAPPDATA": 2,
+        "USERPROFILE": 2
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 668,
+      "session_file_roots": {
+        "data": 3,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "agent-server",
+      "status": "PASS_REQUEST",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 1,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "protocol_result": {
+        "created": true,
+        "accepted": true,
+        "completed": true,
+        "transport": "agent-server",
+        "prompt_in_command_line": false,
+        "runtime_mode": "plan"
+      },
+      "outside_file_events_by_root": {
+        "ProgramData": 5
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 668,
+      "session_file_roots": {
+        "data": 3,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "protocol-cancel",
+      "status": "CANCEL_OBSERVED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read"
+      ],
+      "provider_requests": 1,
+      "tool_result_count": 0,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "protocol_result": {
+        "created": true,
+        "accepted": true,
+        "stop_acknowledged": true,
+        "in_flight_provider_seen": true,
+        "stop_ms": 10,
+        "completed": false,
+        "prompt_in_command_line": false,
+        "runtime_mode": "plan"
+      },
+      "fixture_transport_abort": true,
+      "outside_file_events_by_root": {
+        "APPDATA": 2,
+        "USERPROFILE": 4,
+        "TEMP": 2,
+        "LOCALAPPDATA": 2
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [],
+      "loopback_tcp_connection_count": 1,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 668,
+      "session_file_roots": {
+        "data": 3,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    },
+    {
+      "case": "dotenv",
+      "status": "ANCESTOR_ENV_LOADED",
+      "advertised_tools": [
+        "Glob",
+        "Grep",
+        "Read",
+        "ReadSessionContext",
+        "TaskOutput",
+        "TaskStop",
+        "TodoRead",
+        "TodoWrite"
+      ],
+      "provider_requests": 2,
+      "tool_result_count": 0,
+      "workspace_changed": false,
+      "registry_side_effect": false,
+      "cleanup_complete": true,
+      "runtime_exit": 0,
+      "timed_out": false,
+      "observer_error_count": 0,
+      "outside_file_events_by_root": {
+        "APPDATA": 82,
+        "USERPROFILE": 84,
+        "ProgramData": 10
+      },
+      "outside_zcode_path_events": 0,
+      "dropped_file_events": 0,
+      "observed_process_names": [
+        "candidate",
+        "conhost.exe"
+      ],
+      "nonloopback_tcp_ipv4": [],
+      "loopback_tcp_connection_count": 0,
+      "tool_denial_results": [],
+      "session_file_count_before_cleanup": 669,
+      "session_file_roots": {
+        "data": 4,
+        "home": 660,
+        "owner.json": 1,
+        "runtime": 1,
+        "workspace": 3
+      }
+    }
+  ],
+  "real_zcode_metadata": {
+    "changed_entries": 0,
+    "before_entries": 9277,
+    "after_entries": 9277,
+    "errors": [],
+    "file_contents_read": false
+  },
+  "real_model_api_used": false,
+  "production_runtime_enabled": false,
+  "limitations": [
+    "Non-admin IPv4 TCP/process polling; short events, IPv6, UDP and DNS/TLS hostnames can be missed",
+    "Global file events have no PID attribution; background writes prevent a complete clean-profile claim",
+    "No full VM image/registry hive/network capture; no system security or audit policy changes",
+    "Windows Services/Event Log/Processes/Network/Registry/Drivers/software APIs are absent from the observed builtin read tools",
+    "Ancestor dotenv discovery remains a headless isolation blocker; server transport needs broader lifecycle/attack coverage"
+  ]
+}
