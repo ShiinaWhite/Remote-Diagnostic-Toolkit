@@ -2,7 +2,7 @@
 
 V0.3 production runtime adapter，默认 **YOLO**。RDT 管理加密凭据、固定 runtime 身份、私有 Profile/Session、stdio、Windows Job 生命周期、清理和安全元数据报告。Agent 的任务边界由操作者提示词定义。
 
-V0.2 qualification 已通过外部 Review，冻结于 `89dcc2c02952de45d5929da8219bedefc0068242`。V0.3 在 `v0.3-production-runtime` 开发，等待外部 Review；首次真实 G 验收的结果单独记录，不以本地假 Provider 通过代替。RDT **LICENSE = UNDECIDED**。
+V0.2 qualification 已通过外部 Review，冻结于 `89dcc2c02952de45d5929da8219bedefc0068242`。V0.3 在 `v0.3-production-runtime` 开发，等待外部 Review。**首次真实 G 工具链已通过**；严格检查表因桌面 ZCode 并发写日志影响真实 Profile 快照，保留 PARTIAL 观察，见 [真实验收记录](docs/V0.3_PRODUCTION_ACCEPTANCE.md)。RDT **LICENSE = UNDECIDED**。
 
 ## 构建与发布
 
@@ -107,6 +107,7 @@ dotnet tools/Rdt.RuntimeAcceptance/bin/Release/net10.0/Rdt.RuntimeAcceptance.dll
 ## 文档与归属
 
 - [生产 runtime 契约](docs/PRODUCTION_RUNTIME.md)
+- [V0.3 真实 G 验收与 Profile 观察](docs/V0.3_PRODUCTION_ACCEPTANCE.md)
 - [V0.2 YOLO 资格记录](docs/RUNTIME_QUALIFICATION_YOLO.md)
 - [Job / UTF-8 资格记录](docs/RUNTIME_LIFECYCLE_UTF8_QUALIFICATION.md)
 - [历史网络观察与范围](docs/ZCODE_NETWORK_BEHAVIOR.md)

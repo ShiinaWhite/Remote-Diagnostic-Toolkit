@@ -3,8 +3,14 @@ title = "RDT public source"
 useDefault = true
 
 [[allowlists]]
-description = "Unmodified upstream inventory maps source paths to public SHA-256 hashes"
+description = "Unmodified upstream inventory records public SHA-256 content hashes and Git source revisions"
 condition = "AND"
 paths = ['''(?:^|/)third-party/zcode/inventory\.json$''']
 regexTarget = "line"
-regexes = ['''^\s*"[^"]+": "[0-9a-f]{64}",?\s*$''']
+regexes = [
+  '''^\s*"[^"]+": "[0-9a-f]{64}",?\s*$''',
+  '''^\s*"(?:referenceRevision|sourceRevision|revision)": "[0-9a-f]{40}",?\s*$''',
+  '''^\s*"[0-9a-f]{40}",?\s*$''',
+  '''^\s*"source": "https://github\.com/[A-Za-z0-9._/-]+/[0-9a-f]{40}",?\s*$''',
+  '''^\s*"id": "rust-standard-library@[0-9a-f]{40}",?\s*$'''
+]
