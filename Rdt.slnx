@@ -4,6 +4,7 @@
     <Project Path="src/Rdt.Core/Rdt.Core.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/Rdt.ProtocolFixture/Rdt.ProtocolFixture.csproj" />
     <Project Path="tests/Rdt.Tests/Rdt.Tests.csproj" />
   </Folder>
 </Solution>

@@ -1,16 +1,20 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><IsTestProject>true</IsTestProject><IsPackable>false</IsPackable></PropertyGroup>
   <ItemGroup>
-    <Content Include="Fixtures/**" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="../../runtime/zcode-builtin.json" Link="runtime/zcode-builtin.json" CopyToOutputDirectory="PreserveNewest" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="4.0.1"><PrivateAssets>all</PrivateAssets></PackageReference>
     <ProjectReference Include="../../src/Rdt.Core/Rdt.Core.csproj" />
     <ProjectReference Include="../../src/Rdt.Cli/Rdt.Cli.csproj" />
+    <ProjectReference Include="../Rdt.ProtocolFixture/Rdt.ProtocolFixture.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
   <Target Name="CopyCliHost" AfterTargets="Build">
     <ItemGroup><CliHost Include="../../src/Rdt.Cli/bin/$(Configuration)/net10.0/rdt.exe;../../src/Rdt.Cli/bin/$(Configuration)/net10.0/rdt;../../src/Rdt.Cli/bin/$(Configuration)/net10.0/rdt.runtimeconfig.json;../../src/Rdt.Cli/bin/$(Configuration)/net10.0/rdt.deps.json" Condition="Exists('%(Identity)')" /></ItemGroup>
     <Copy SourceFiles="@(CliHost)" DestinationFolder="$(OutDir)" />
+  </Target>
+  <Target Name="CopyProtocolFixture" AfterTargets="Build">
+    <ItemGroup><ProtocolFixture Include="../Rdt.ProtocolFixture/bin/$(Configuration)/net10.0/Rdt.ProtocolFixture*" /></ItemGroup>
+    <Copy SourceFiles="@(ProtocolFixture)" DestinationFolder="$(OutDir)Fixtures" />
   </Target>
 </Project>

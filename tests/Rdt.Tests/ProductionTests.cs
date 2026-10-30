@@ -93,11 +93,9 @@ public class ProductionTests(FoundationFixture f) : IClassFixture<FoundationFixt
         CreateJob = () => new RuntimeJob(jobFault),
         StartInfo = session => {
             var start = ZcodeRuntime.CreateStartInfo(session);
-            start.FileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "System32", "WindowsPowerShell", "v1.0", "powershell.exe");
+            start.FileName = Path.Combine(AppContext.BaseDirectory, "Fixtures", "Rdt.ProtocolFixture.exe");
             start.ArgumentList.Clear();
-            // Encoded fixture code avoids changing the host's script execution policy.
-            var fixture = "& {\n" + File.ReadAllText(Path.Combine(AppContext.BaseDirectory, "Fixtures", "protocol-runtime.ps1")) + "\n} '" + scenario + "'";
-            foreach (var arg in new[] { "-NoLogo", "-NoProfile", "-NonInteractive", "-EncodedCommand", Convert.ToBase64String(Encoding.Unicode.GetBytes(fixture)) }) start.ArgumentList.Add(arg);
+            start.ArgumentList.Add(scenario);
             return start;
         },
         SessionTimeout = timeout ?? TimeSpan.FromSeconds(15), StopTimeout = TimeSpan.FromMilliseconds(500)
