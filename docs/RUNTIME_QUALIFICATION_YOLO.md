@@ -1,5 +1,7 @@
 # V0.2 Phase 2 — YOLO Runtime Qualification
 
+> 本页保留 Phase 2 历史结果，原始脱敏证据不变。后续专门针对两个实际问题的 [Job lifetime / UTF-8 qualification](RUNTIME_LIFECYCLE_UTF8_QUALIFICATION.md) 已验证 Job Object 回收与 PowerShell 5.1/7 中文契约；不得据此把本页当时的 detached FAIL 改成 PASS。当前默认方向仍为完整 YOLO Agent，生产 Adapter 保持关闭。
+
 STATUS = PARTIAL。完整运维能力取得实证，**生产 Adapter 仍保持 `RUNTIME_NOT_VALIDATED`**。后台脱离子进程清理、普通用户权限和完整落盘归因仍未关闭，不建议解锁生产。
 
 ## 产品方向决策

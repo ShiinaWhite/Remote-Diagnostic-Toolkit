@@ -4,6 +4,8 @@ V0.2 的开发 qualification 工具独立于客户 CLI/publish graph，仅执行
 
 ## V0.2 候选的责任边界
 
+后续 [Job lifetime / UTF-8 qualification](RUNTIME_LIFECYCLE_UTF8_QUALIFICATION.md) 仅在开发 bridge 引入专用、不可继承 handle 的 Windows Job，唯一 limit 为 KILL_ON_JOB_CLOSE。Assign 成功且实际成员查询通过后才允许发送 Session frames；失败即停止，不用 breakaway 绕过宿主限制。Job 只处理正常后代生命周期，不是命令/资源/安全限制，不回滚 Agent 已作出的系统修改。wrapper 强杀的受控实验验证 OS 关闭最后 Job handle 后成员结束；Session 目录清理仍需另外的合法 Cleaner，不能据此宣称强杀时目录也自动消失。冻结生产实现没有获得这些能力，Adapter 仍为 RUNTIME_NOT_VALIDATED。
+
 RDT 负责凭据保护、runtime 身份、Profile/Session 隔离、传输、清理及报告。READ ONLY 为未来可选模式，不另建 Windows 只读采集层。候选通过官方 `agent-server --stdio` 与 `session/create(mode=yolo)` 工作，不设置只读工具过滤；任务文本只进入 stdin frame。正常 Bash、Write、Edit 能力保留。Profile 环境重定向不限制 Agent 访问当前 Windows token 可访问的系统对象，也不等于系统级沙箱。
 
 Phase 2 的开发环境另测 Windows 系统目录构成的固定 PATH、固定 PATHEXT 和 ComSpec，避免继承用户 PATH/可执行入口；同时设置固定 hash 的本地 builtin 与 Session personal provider 配置。该候选环境没有修改 V0.1 `DiagnosticSession.EnvironmentVariables()` 或生产参数构造器。

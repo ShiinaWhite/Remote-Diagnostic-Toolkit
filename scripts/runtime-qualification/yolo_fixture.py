@@ -93,7 +93,7 @@ def calls(case: str, launch: dict) -> list[tuple[str, dict]]:
 
 
 class YoloFixture:
-    def __init__(self, runs: pathlib.Path):
+    def __init__(self, runs: pathlib.Path, *, cases=CASES, scenario=calls):
         self.runs = runs
         self.requests: list[dict] = []
         self.gets: list[str] = []
@@ -130,12 +130,12 @@ class YoloFixture:
                     self.send_error(401); return
                 body = json.loads(self.rfile.read(length))
                 case = body.get('model','').removeprefix('rdt-yolo-')
-                if case not in CASES:
+                if case not in cases:
                     self.send_error(400); return
                 launch = json.loads((provider.runs/case/'launch.json').read_text(encoding='utf-8-sig'))
                 with provider.lock:
                     provider.requests.append({'case':case,'path':self.path,'body':body})
-                    sequence = calls(case, launch)
+                    sequence = scenario(case, launch)
                     index = provider.issued.get(case,0)
                     call = sequence[index] if index < len(sequence) and body.get('tools') else None
                     if call:

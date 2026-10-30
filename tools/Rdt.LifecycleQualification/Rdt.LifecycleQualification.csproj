@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Rdt.Core/Rdt.Core.csproj" />
+    <Compile Include="../Rdt.YoloQualification/ProtocolClient.cs" Link="ProtocolClient.cs" />
+    <Compile Include="../Rdt.YoloQualification/ChildLifetime.cs" Link="ChildLifetime.cs" />
+    <Compile Include="../../src/Rdt.Core/Session/SessionPaths.cs" Link="SessionPaths.cs" />
+  </ItemGroup>
+</Project>

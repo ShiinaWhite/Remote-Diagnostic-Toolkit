@@ -38,3 +38,11 @@ jobs:
         run: dotnet build tools/Rdt.YoloQualification/Rdt.YoloQualification.csproj -c Release --no-restore
       - name: YOLO evidence evaluator self tests (no candidate runtime or API key)
         run: python -m unittest discover -s scripts/runtime-qualification -p test_yolo.py -v
+      - name: Locked restore of developer lifecycle qualification bridge
+        run: dotnet restore tools/Rdt.LifecycleQualification/Rdt.LifecycleQualification.csproj --locked-mode
+      - name: Build developer lifecycle qualification bridge
+        run: dotnet build tools/Rdt.LifecycleQualification/Rdt.LifecycleQualification.csproj -c Release --no-restore
+      - name: Native Windows Job API self tests (no candidate runtime or API key)
+        run: dotnet tools/Rdt.LifecycleQualification/bin/Release/net10.0/Rdt.LifecycleQualification.dll self-test
+      - name: Lifecycle and Unicode evidence self tests (no candidate runtime or API key)
+        run: python -m unittest discover -s scripts/runtime-qualification -p test_lifecycle.py -v

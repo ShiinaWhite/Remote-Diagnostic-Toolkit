@@ -129,3 +129,5 @@ config/ scripts/ docs/ Reports/
 V0.2 正在验证 **完整 Windows 运维 Agent（YOLO）**，生产候选采用 `agent-server --stdio`，任务经 stdin 协议发送。RDT 负责加密凭据、固定 runtime 身份、Profile/Session 隔离、传输、清理和报告；READ ONLY 留作未来可选模式。V0.1 Mock 功能与生产 `ZcodeRuntime => RUNTIME_NOT_VALIDATED` 保持不变。
 
 固定官方源码 SEA、Phase 1 READ ONLY 历史实验见 [Phase 1 资格记录](docs/RUNTIME_QUALIFICATION.md)。新方向与真实 PowerShell、受控写入、隔离及取消实验见 [Phase 2 YOLO 资格记录](docs/RUNTIME_QUALIFICATION_YOLO.md) 和 [网络观察](docs/ZCODE_NETWORK_BEHAVIOR.md)。本分支只准备开发资格证据，等待外部 Review，不启用真实模型或发布候选二进制。
+
+后续限定范围的 [Job lifetime / UTF-8 资格测试](docs/RUNTIME_LIFECYCLE_UTF8_QUALIFICATION.md) 验证 Windows Job Object 对正常及 detached 后代进程的生命周期回收，并验证 PowerShell 5.1/7 的显式 UTF-8 中文传输。它不限制 YOLO 工具能力，也没有进入客户发布图或解锁生产 Adapter。
