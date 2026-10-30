@@ -32,3 +32,9 @@ jobs:
         run: dotnet build tools/Rdt.Qualification/Rdt.Qualification.csproj -c Release --no-restore
       - name: Qualification harness self tests (no candidate runtime or API key)
         run: python -m unittest discover -s scripts/runtime-qualification -p test_harness.py -v
+      - name: Locked restore of developer YOLO qualification bridge
+        run: dotnet restore tools/Rdt.YoloQualification/Rdt.YoloQualification.csproj --locked-mode
+      - name: Build developer YOLO qualification bridge
+        run: dotnet build tools/Rdt.YoloQualification/Rdt.YoloQualification.csproj -c Release --no-restore
+      - name: YOLO evidence evaluator self tests (no candidate runtime or API key)
+        run: python -m unittest discover -s scripts/runtime-qualification -p test_yolo.py -v

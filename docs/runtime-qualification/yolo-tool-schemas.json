@@ -1,0 +1,1253 @@
+{
+  "schema_version": 1,
+  "source": "actual fixed SEA YOLO Provider request; surface case",
+  "projection": "parameter schema with description/title/examples omitted; original full request remains private",
+  "tools": [
+    {
+      "name": "Agent",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string"
+          },
+          "subagent_type": {
+            "type": "string"
+          },
+          "run_in_background": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "description",
+          "prompt"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "e629d7aa09e0f8130514fb38eba07ae24b2ebf9bca932a9d265106f5ff85adb5"
+    },
+    {
+      "name": "AskUserQuestion",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "questions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "question": {
+                  "type": "string"
+                },
+                "header": {
+                  "type": "string"
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "preview": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "label",
+                      "description"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "maxItems": 4
+                },
+                "multiSelect": {
+                  "type": "boolean",
+                  "default": false
+                }
+              },
+              "required": [
+                "question",
+                "header",
+                "options",
+                "multiSelect"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 4
+          },
+          "answers": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "type": "string"
+            }
+          },
+          "annotations": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "preview": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "propertyNames": {
+              "type": "string"
+            }
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "questions"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "88c3daf70e465d9d0aa661d4c477cf74df4e5a66bde465cd260781008fb8b7bb"
+    },
+    {
+      "name": "Bash",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "timeout": {
+            "type": "number"
+          },
+          "run_in_background": {
+            "type": "boolean"
+          },
+          "dangerouslyDisableSandbox": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "command"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "c0b6065a7c097ae3be41d7cbb00983f7eaaff13ae8f21945022fe7bbb29ac547"
+    },
+    {
+      "name": "CronCreate",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "cron": {
+            "type": "string",
+            "minLength": 1
+          },
+          "delayMinutes": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 525600
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recurring": {
+            "type": "boolean"
+          },
+          "maxRuns": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          },
+          "intervalUnit": {
+            "type": "string",
+            "enum": [
+              "minute",
+              "hourly",
+              "daily",
+              "weekly",
+              "monthly",
+              "yearly"
+            ]
+          },
+          "interval": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200
+          }
+        },
+        "required": [
+          "prompt",
+          "title"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "82f1f31d920847970d825425417ff0688e3beb78ff7d976df47d755c9ad606fe"
+    },
+    {
+      "name": "CronDelete",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "c1fd9d7a99b688f299f05ec973fb7a7bb68ee41d9f03c5f08bb85f8d7c6254d5"
+    },
+    {
+      "name": "CronList",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "71fc596a20f27da3dec80050e5d1f553eba34aea24c2853b853488a811e6b892"
+    },
+    {
+      "name": "CronUpdate",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "cron": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "recurring": {
+            "type": "boolean"
+          },
+          "maxRuns": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "intervalUnit": {
+            "type": "string",
+            "enum": [
+              "minute",
+              "hourly",
+              "daily",
+              "weekly",
+              "monthly",
+              "yearly"
+            ]
+          },
+          "interval": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 200
+          }
+        },
+        "required": [
+          "id",
+          "title"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "62f3e7cfa5bae78cf2974eae1a5e0ad037a6c64e0576099a3b5fcfcdcf2d18aa"
+    },
+    {
+      "name": "Edit",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string"
+          },
+          "old_string": {
+            "type": "string"
+          },
+          "new_string": {
+            "type": "string"
+          },
+          "replace_all": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": [
+          "file_path",
+          "old_string",
+          "new_string"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "73c20da9a0cd63a1eb6f21ac29e3c9124ecd39c8a10076d94b4eb29c3a5018f0"
+    },
+    {
+      "name": "EnterPlanMode",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "71fc596a20f27da3dec80050e5d1f553eba34aea24c2853b853488a811e6b892"
+    },
+    {
+      "name": "ExitPlanMode",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000
+          },
+          "allowedPrompts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "tool": {
+                  "type": "string",
+                  "enum": [
+                    "Bash"
+                  ]
+                },
+                "prompt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "tool",
+                "prompt"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "plan"
+        ],
+        "additionalProperties": {},
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "dbb8f45e63c2ad9d5bb2ceff8278bbf484794ea484824ce3b01b0cef59dc33e4"
+    },
+    {
+      "name": "Read",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "file_path"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "9c0ebb0e0fea1bb7dde43480d787d5f35d6582a41756a7bfca5985470c0bfa36"
+    },
+    {
+      "name": "ReadSessionContext",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "pattern": "^(?:current|sess_[A-Za-z0-9._-]+)$",
+            "default": "current"
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "strategy": {
+            "type": "string",
+            "enum": [
+              "relevant",
+              "handoff",
+              "topic"
+            ],
+            "default": "relevant"
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "attachment": {
+            "type": "object",
+            "properties": {
+              "inputId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "messageId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "index": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "messageId"
+            ],
+            "additionalProperties": false
+          },
+          "maxTokens": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 12000
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "e47fd38e8f3cf60036284ac1b55dccde3a8172d3b6bbd85d72fd6d1714561253"
+    },
+    {
+      "name": "ReplyToChannel",
+      "parameters": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "parts"
+        ],
+        "properties": {
+          "parts": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "type"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "text",
+                    "mention",
+                    "mentionName"
+                  ]
+                },
+                "text": {
+                  "type": "string",
+                  "maxLength": 2000
+                },
+                "refId": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "candidateRef": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                }
+              }
+            }
+          }
+        }
+      },
+      "original_parameters_sha256": "028773fe1811a757bb4074749d1f8f720e2e97415375b2cbc39e2b3fea020975"
+    },
+    {
+      "name": "SendMessage",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 20000
+          }
+        },
+        "required": [
+          "to",
+          "summary",
+          "message"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "b706af51c3cb965e2b42868c6deac6ba190000d787542a01811bad17c802aba5"
+    },
+    {
+      "name": "Skill",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "skill": {
+            "type": "string"
+          },
+          "args": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "skill"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "3f335f6d6bd8375071f441aaf822bf292a87b30ab7e1fb265eaefb24ec1bdb0f"
+    },
+    {
+      "name": "TaskOutput",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string"
+          },
+          "block": {
+            "type": "boolean",
+            "default": true
+          },
+          "timeout": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 600000,
+            "default": 30000
+          }
+        },
+        "required": [
+          "task_id",
+          "block",
+          "timeout"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "891cde9c7057d6e54554116564655318c862ae8b7019466aa00aab28e56fe4da"
+    },
+    {
+      "name": "TaskStop",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "string"
+          },
+          "shell_id": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "9f76ff6acc16e7f316c68606df009097b011cec429eb170fb41adbc0f812b926"
+    },
+    {
+      "name": "TodoRead",
+      "parameters": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "71fc596a20f27da3dec80050e5d1f553eba34aea24c2853b853488a811e6b892"
+    },
+    {
+      "name": "TodoWrite",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "todos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "pending",
+                    "in_progress",
+                    "completed"
+                  ]
+                },
+                "priority": {
+                  "type": "string",
+                  "enum": [
+                    "high",
+                    "medium",
+                    "low"
+                  ]
+                }
+              },
+              "required": [
+                "content",
+                "status",
+                "priority"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "todos"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "5bd1b4bebd88eac99df2ceddb7347aaa28bc8f2dea535f233b0645568f0ddd2e"
+    },
+    {
+      "name": "WebFetch",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "prompt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "prompt"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "29188b18ff3e3cc1a8326091768850706c9b5aa545717facb774eae4f6d7ed85"
+    },
+    {
+      "name": "Write",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "file_path": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "file_path",
+          "content"
+        ],
+        "additionalProperties": false,
+        "$schema": "https://json-schema.org/draft/2020-12/schema"
+      },
+      "original_parameters_sha256": "32dd0537e15f621781fa35bd4db0fce13449e8171eb17b97246a7ed13e6e5038"
+    },
+    {
+      "name": "mcp__node_repl__js",
+      "parameters": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "timeout_ms": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 120000
+          }
+        },
+        "required": [
+          "code",
+          "title"
+        ],
+        "additionalProperties": false
+      },
+      "original_parameters_sha256": "f0c83f16abbe4a27d9942c322b8429746dd040700dcce5ca7bc379f7139706d0"
+    },
+    {
+      "name": "mcp__plugin_documents_documents__get_view",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "viewId": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "a2f6017eadd6c4ca3a56c6ca86fb936540fa71d4444c84551f763669a57db118"
+    },
+    {
+      "name": "mcp__plugin_documents_documents__open_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "at": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "785220cba09e753e419657ea763da79378d359e438e17b5b2b208c6f0316b95c"
+    },
+    {
+      "name": "mcp__plugin_documents_documents__read_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1200
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "anchor"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "33ab107352550a5a082da87ad94bce216d93ca7d543acc9b683d6a2d65491c4d"
+    },
+    {
+      "name": "mcp__plugin_documents_documents__search_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "path",
+          "query"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "7a4d34173e9da2e1ba6f11511c2aed81fb0909648ed008e1afeb5a54760a81c7"
+    },
+    {
+      "name": "mcp__plugin_documents_documents__show_in_viewer",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "targets": {
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "anchor": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1200
+                },
+                "quote": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "anchor"
+              ]
+            }
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "targets"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "ced350e4bbdbd75b8cb1d7eab9cfe5fe280ccdfd49507a6d627825fed87017ea"
+    },
+    {
+      "name": "mcp__plugin_pdf_pdf__get_view",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "viewId": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "a2f6017eadd6c4ca3a56c6ca86fb936540fa71d4444c84551f763669a57db118"
+    },
+    {
+      "name": "mcp__plugin_pdf_pdf__open_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "at": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "7b8f1fd502e27e2d3c531c2fe1bed2bebb7d9291723861c9c5345d2d6aa31d82"
+    },
+    {
+      "name": "mcp__plugin_pdf_pdf__read_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1200
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "anchor"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "698afe196af09fae1c6832252555d9d92235b85008676188b4534e0e54d67b3f"
+    },
+    {
+      "name": "mcp__plugin_pdf_pdf__search_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "path",
+          "query"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "7a4d34173e9da2e1ba6f11511c2aed81fb0909648ed008e1afeb5a54760a81c7"
+    },
+    {
+      "name": "mcp__plugin_pdf_pdf__show_in_viewer",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "targets": {
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "anchor": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1200
+                },
+                "quote": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "anchor"
+              ]
+            }
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "targets"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "6075009a40a7737b7a3afa9fe625e8cc722c397b31d3a6c845dd073d3dbc33a8"
+    },
+    {
+      "name": "mcp__plugin_presentations_presentations__get_view",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "viewId": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "a2f6017eadd6c4ca3a56c6ca86fb936540fa71d4444c84551f763669a57db118"
+    },
+    {
+      "name": "mcp__plugin_presentations_presentations__open_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "at": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "6ef780fad62d15d4d7d7986a14dc25cd466bc7c33f45ce28e356c98849111cef"
+    },
+    {
+      "name": "mcp__plugin_presentations_presentations__read_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1200
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "anchor"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "0ac4cad954a3a9868b225289c9d32de4ea564c7105b6a5495dafb678638084ba"
+    },
+    {
+      "name": "mcp__plugin_presentations_presentations__search_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "path",
+          "query"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "7a4d34173e9da2e1ba6f11511c2aed81fb0909648ed008e1afeb5a54760a81c7"
+    },
+    {
+      "name": "mcp__plugin_presentations_presentations__show_in_viewer",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "targets": {
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "anchor": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1200
+                },
+                "quote": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "anchor"
+              ]
+            }
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "targets"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "0b8ecd9299b7088c95219445a8c7965cd26eae9dbeee7f26d18dd3cf61991bfe"
+    },
+    {
+      "name": "mcp__plugin_spreadsheets_spreadsheets__get_view",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "viewId": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "a2f6017eadd6c4ca3a56c6ca86fb936540fa71d4444c84551f763669a57db118"
+    },
+    {
+      "name": "mcp__plugin_spreadsheets_spreadsheets__open_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "at": {
+            "type": "string",
+            "maxLength": 300
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "d5a42e89651b4c3a8761b87b7bb10bf0fe71534e5bb5f3b1b27228e82060c1c2"
+    },
+    {
+      "name": "mcp__plugin_spreadsheets_spreadsheets__read_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "anchor": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1200
+          },
+          "cursor": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "anchor"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "1d493ee89d5b45fdca81b3d35fb73e4014e1a9621511dbeddf1e2c960e694f93"
+    },
+    {
+      "name": "mcp__plugin_spreadsheets_spreadsheets__search_document",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "path",
+          "query"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "7a4d34173e9da2e1ba6f11511c2aed81fb0909648ed008e1afeb5a54760a81c7"
+    },
+    {
+      "name": "mcp__plugin_spreadsheets_spreadsheets__show_in_viewer",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "targets": {
+            "minItems": 1,
+            "maxItems": 20,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "anchor": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1200
+                },
+                "quote": {
+                  "type": "string",
+                  "maxLength": 500
+                }
+              },
+              "required": [
+                "anchor"
+              ]
+            }
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "targets"
+        ],
+        "$schema": "http://json-schema.org/draft-07/schema#"
+      },
+      "original_parameters_sha256": "e8867483003999eb7a85765ab478815adba5f0429c1a385b7b6d26cce4e43c55"
+    }
+  ]
+}

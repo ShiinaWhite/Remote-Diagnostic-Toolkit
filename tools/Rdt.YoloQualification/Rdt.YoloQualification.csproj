@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><IsPackable>false</IsPackable></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Rdt.Core/Rdt.Core.csproj" />
+    <Compile Include="../Rdt.Qualification/WindowsObservation.cs" Link="WindowsObservation.cs" />
+  </ItemGroup>
+</Project>

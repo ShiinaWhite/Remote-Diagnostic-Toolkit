@@ -126,6 +126,6 @@ config/ scripts/ docs/ Reports/
 
 ## 后续真实接入
 
-V0.2 第一阶段的开发资格实验已生成固定官方源码 Windows SEA 候选，并以本地 fixture Provider 验证工具面、读取、拒绝调用和官方 stdio 入口。结论为 **PARTIAL**，生产 `ZcodeRuntime` 仍返回 `RUNTIME_NOT_VALIDATED`。Windows 运维能力、headless 前置路径和网络/整机归因缺口见 [资格记录](docs/RUNTIME_QUALIFICATION.md) 与 [网络观察](docs/ZCODE_NETWORK_BEHAVIOR.md)；本阶段未启用真实模型或发布候选二进制。
+V0.2 正在验证 **完整 Windows 运维 Agent（YOLO）**，生产候选采用 `agent-server --stdio`，任务经 stdin 协议发送。RDT 负责加密凭据、固定 runtime 身份、Profile/Session 隔离、传输、清理和报告；READ ONLY 留作未来可选模式。V0.1 Mock 功能与生产 `ZcodeRuntime => RUNTIME_NOT_VALIDATED` 保持不变。
 
-官方源码有 Windows SEA 构建支持，但本次未取得和实测可信独立 CLI 发行产物。计划模式也不等价于系统级只读沙箱。必须先固定产物、核实配置及工具面、完成真实拒绝测试与隔离验证，才可实现真实启动。详见 runtime 调查末尾的放行条件。
+固定官方源码 SEA、Phase 1 READ ONLY 历史实验见 [Phase 1 资格记录](docs/RUNTIME_QUALIFICATION.md)。新方向与真实 PowerShell、受控写入、隔离及取消实验见 [Phase 2 YOLO 资格记录](docs/RUNTIME_QUALIFICATION_YOLO.md) 和 [网络观察](docs/ZCODE_NETWORK_BEHAVIOR.md)。本分支只准备开发资格证据，等待外部 Review，不启用真实模型或发布候选二进制。

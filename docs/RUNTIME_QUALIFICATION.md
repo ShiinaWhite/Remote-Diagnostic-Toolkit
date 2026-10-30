@@ -1,5 +1,7 @@
 # V0.2 phase 1 — ZCode runtime qualification
 
+> **历史证据，保留 Phase 1 实验结论。SUPERSEDED BY PRODUCT DIRECTION DECISION：** 2026-10-30 Phase 2 将默认目标改为 YOLO / full Agent capabilities；READ ONLY 为未来可选模式。本页关于“严格只读默认目标 / 独立只读 Windows 采集层”的建议已被取代，不再是当前产品建议。当前方向、协议与资格状态见 [Phase 2](RUNTIME_QUALIFICATION_YOLO.md)。下文的禁止 YOLO、headless 阻塞和放行条件属于 Phase 1 范围，不能覆盖 Phase 2 的授权和实测结论。
+
 本目录工具仅用于开发机上验证候选 runtime，不进入客户 CLI、发布目录或生产启动链。
 生产 `ZcodeRuntime` 始终抛出 `RUNTIME_NOT_VALIDATED`，本阶段结束后仍须外部 Review。
 
@@ -119,6 +121,8 @@ Foundation 69/69 PASS、0 skipped；开发 harness 自测 11/11 PASS。CI 运行
 上述拒绝实验常以退出码 0 结束，真正证据是 `Tool not found: <name>`、工具事件、未变化的 fixture hash、未产生的 canary 与清理结果。不是模型口头承诺，也不是仅检查源码常量。
 
 ### 架构阻塞：Windows 运维调查
+
+**SUPERSEDED BY PRODUCT DIRECTION DECISION（产品建议；下述能力实验仍有效）。** 不开发独立只读 Windows 采集层；Phase 2 直接资格测试官方 YOLO Bash/PowerShell。
 
 严格契约内实际可用的 builtin reads 是文件读取/枚举/搜索，不是 Windows 管理 API。它们不能直接查询 Services、Event Log、Processes、Network、Registry、Drivers、Installed software 的实时状态。文件内容与已存在的文本日志可以读取，但本阶段未验证面向模型的完整文件元数据接口。读取文件或预先导出的资料不能冒充原生系统调查，doctor 也不能替代这些需求。
 

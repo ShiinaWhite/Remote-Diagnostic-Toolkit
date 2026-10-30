@@ -1,0 +1,1411 @@
+{
+  "schema_version": 1,
+  "phase": 2,
+  "status": "PARTIAL",
+  "qualification_only": true,
+  "runtime_sha256": "f40f4b6c8709ba2cc89ea000c3a6d97e8680ee4233720f737b6b7a506417ddf8",
+  "builtin_sha256": "e4e8e3527fa131195e3dc009d4fac9e5b403834281e9ecdddaa68850dc2cb7c0",
+  "transport": "agent-server --stdio",
+  "session_mode": "yolo",
+  "tool_filters": false,
+  "candidate_environment": "V0.1 redirected variables plus fixed Windows-only PATH/PATHEXT/ComSpec and paired builtin/personal files",
+  "actual_provider_tool_surface": [
+    "Agent",
+    "AskUserQuestion",
+    "Bash",
+    "CronCreate",
+    "CronDelete",
+    "CronList",
+    "CronUpdate",
+    "Edit",
+    "EnterPlanMode",
+    "ExitPlanMode",
+    "Read",
+    "ReadSessionContext",
+    "ReplyToChannel",
+    "SendMessage",
+    "Skill",
+    "TaskOutput",
+    "TaskStop",
+    "TodoRead",
+    "TodoWrite",
+    "WebFetch",
+    "Write",
+    "mcp__node_repl__js",
+    "mcp__plugin_documents_documents__get_view",
+    "mcp__plugin_documents_documents__open_document",
+    "mcp__plugin_documents_documents__read_document",
+    "mcp__plugin_documents_documents__search_document",
+    "mcp__plugin_documents_documents__show_in_viewer",
+    "mcp__plugin_pdf_pdf__get_view",
+    "mcp__plugin_pdf_pdf__open_document",
+    "mcp__plugin_pdf_pdf__read_document",
+    "mcp__plugin_pdf_pdf__search_document",
+    "mcp__plugin_pdf_pdf__show_in_viewer",
+    "mcp__plugin_presentations_presentations__get_view",
+    "mcp__plugin_presentations_presentations__open_document",
+    "mcp__plugin_presentations_presentations__read_document",
+    "mcp__plugin_presentations_presentations__search_document",
+    "mcp__plugin_presentations_presentations__show_in_viewer",
+    "mcp__plugin_spreadsheets_spreadsheets__get_view",
+    "mcp__plugin_spreadsheets_spreadsheets__open_document",
+    "mcp__plugin_spreadsheets_spreadsheets__read_document",
+    "mcp__plugin_spreadsheets_spreadsheets__search_document",
+    "mcp__plugin_spreadsheets_spreadsheets__show_in_viewer"
+  ],
+  "cases": [
+    {
+      "case": "surface",
+      "status": "PASS",
+      "provider_requests": 1,
+      "tool_results": 0,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 2,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 19,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "conhost.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "read",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 2,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 1,
+      "outside_session_file_events": 44,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "conhost.exe",
+        "promecefpluginhost.exe",
+        "taskkill.exe",
+        "wps.exe",
+        "wpscloudsvr.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "write",
+      "status": "PASS",
+      "provider_requests": 3,
+      "tool_results": 2,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 182,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "conhost.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "written.txt"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "edit",
+      "status": "PASS",
+      "provider_requests": 4,
+      "tool_results": 3,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 69,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "conhost.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [],
+        "removed": [],
+        "modified": [
+          "edit-target.txt"
+        ]
+      }
+    },
+    {
+      "case": "delete",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 37,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [
+          "delete-target.txt"
+        ],
+        "modified": []
+      }
+    },
+    {
+      "case": "mkdir",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 57,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "cmd.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "subprocess",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 12,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "conhost.exe",
+        "taskkill.exe",
+        "which.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "services",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 5,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 21,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "cat.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "which.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "processes",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 5,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 61,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "cat.exe",
+        "cmd.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "eventlog",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 42,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "cmd.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "os",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 33,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "which.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "network",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 5,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 31,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "scheduled",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 5,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 115,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "conhost.exe",
+        "git.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "registry-read",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": false,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 24,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "cmd.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "registry-lifecycle",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 2,
+      "outside_session_file_events": 42,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "ImeService.exe",
+        "ImeWatchdog.exe",
+        "bash.exe",
+        "cmd.exe",
+        "conhost.exe",
+        "git.exe",
+        "parfait_crash_handler.exe",
+        "powershell.exe",
+        "promecefpluginhost.exe",
+        "taskkill.exe",
+        "wps.exe",
+        "wpscloudsvr.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "privilege",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 34,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "conhost.exe",
+        "fsutil.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "which.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "parent-dotenv",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 1,
+      "outside_session_file_events": 71,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "ImeService.exe",
+        "ImeWatchdog.exe",
+        "bash.exe",
+        "conhost.exe",
+        "git.exe",
+        "parfait_crash_handler.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "local-builtin-idle",
+      "status": "PASS",
+      "provider_requests": 1,
+      "tool_results": 0,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 2,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 280,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "conhost.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "glob",
+      "status": "UNAVAILABLE",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 2,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 33,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "conhost.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "grep",
+      "status": "UNAVAILABLE",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 2,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 1,
+      "outside_session_file_events": 11,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "ImeService.exe",
+        "ImeWatchdog.exe",
+        "conhost.exe",
+        "parfait_crash_handler.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "patch",
+      "status": "UNAVAILABLE",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 2,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 24,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "VBCSCompiler.exe",
+        "conhost.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "tool-failure",
+      "status": "PASS",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": false,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 37,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "cmd.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "model-cancel",
+      "status": "PASS",
+      "provider_requests": 1,
+      "tool_results": 0,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 0,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "fixture_transport_aborted": true,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 2,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 3
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 10,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "conhost.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "stop_ack_ms": 350,
+      "workspace_delta": {
+        "added": [],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "tool-stop",
+      "status": "PASS",
+      "provider_requests": 1,
+      "tool_results": 0,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 24,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "chcp.com",
+        "cmd.exe",
+        "conhost.exe",
+        "git.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "stop_ack_ms": 316,
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "wrapper-cancel",
+      "status": "PASS",
+      "provider_requests": 1,
+      "tool_results": 0,
+      "powershell_ok": null,
+      "powershell_rows": null,
+      "cleanup_complete": true,
+      "child_recovery_required": false,
+      "child_marker_count": 1,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 3,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 4
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 41,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "cmd.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "stop_ack_ms": 8,
+      "wrapper_token_cancelled": true,
+      "workspace_delta": {
+        "added": [
+          "active.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    },
+    {
+      "case": "detached-child",
+      "status": "FAIL",
+      "provider_requests": 2,
+      "tool_results": 1,
+      "powershell_ok": true,
+      "powershell_rows": 1,
+      "cleanup_complete": true,
+      "child_recovery_required": true,
+      "child_marker_count": 2,
+      "runtime_exit": 0,
+      "forced_kill": false,
+      "observer_error_count": 0,
+      "registry_absent_before_recovery": true,
+      "control_plane_gets": 0,
+      "actual_permission_mode": "yolo",
+      "session_file_categories": {
+        "database": 1,
+        "logs": 1,
+        "model_io": 1,
+        "other": 4,
+        "plugins": 649,
+        "provider": 2,
+        "runtime_tools": 4,
+        "skills": 4,
+        "workspace": 5
+      },
+      "non_loopback_tcp_sample_count": 0,
+      "outside_session_file_events": 30,
+      "watcher_dropped_events": 0,
+      "child_process_names": [
+        "bash.exe",
+        "cmd.exe",
+        "conhost.exe",
+        "powershell.exe",
+        "taskkill.exe",
+        "zcode-windows-x64.exe"
+      ],
+      "inherited_administrator_token": true,
+      "registry_absent_final": true,
+      "orphan_recovery_completed": true,
+      "reverse_requests_rejected": {
+        "session/requestRuntimePreferences": 2
+      },
+      "workspace_delta": {
+        "added": [
+          "active.pid.json",
+          "detached.pid.json"
+        ],
+        "removed": [],
+        "modified": []
+      }
+    }
+  ],
+  "real_zcode_metadata": {
+    "unchanged": true,
+    "before_entries": 9277,
+    "after_entries": 9277,
+    "enumeration_errors": 0
+  },
+  "real_api_used": false,
+  "production_runtime_enabled": false,
+  "ordinary_user_boundary": "NOT_PROVEN: inherited administrator token; de-elevation launch was denied, no security policy changed",
+  "limitations": [
+    "Active development host, no PID-attributed whole-machine filesystem diff",
+    "50ms IPv4 TCP/process sampling misses short connections/processes, IPv6, UDP, DNS and TLS names",
+    "Canary PID plus exact birth time checks cover fixture-owned processes, not all possible descendants",
+    "Actual plugin tool registration is observed; plugin/skill/browser/subagent execution not qualified here"
+  ]
+}

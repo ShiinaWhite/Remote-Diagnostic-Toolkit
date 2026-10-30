@@ -2,6 +2,16 @@
 
 > 下文保留 V0.1 的历史调查。2026-10-30 已重新查询上游并完成 V0.2 第一阶段的固定候选实验，见 [RUNTIME_QUALIFICATION.md](RUNTIME_QUALIFICATION.md) 和 [网络观察](ZCODE_NETWORK_BEHAVIOR.md)。生产 runtime 仍 fail closed。
 
+## V0.2 Phase 2：当前产品方向与实测
+
+**SUPERSEDED BY PRODUCT DIRECTION DECISION：** 下述 V0.1 / Phase 1 的“只读默认产品目标、危险工具必须拒绝、独立只读 Windows 采集层”放行建议已被取代；历史实验保留。当前默认目标为 **YOLO / full Agent capabilities**，READ ONLY 为未来可选模式。RDT 负责加密凭据、固定身份、Profile/Session、传输、清理和报告，不另建 Windows 只读采集器。
+
+Phase 2 使用同一固定 hash SEA、官方 `agent-server --stdio`、`session/create(mode=yolo)`，无只读 allowlist/denylist。任务只经 stdin frame，不再以 `--prompt` 作为生产设计。实际 Provider schema 包含 Bash/Read/Write/Edit、Agent/Skill/Cron 和随包插件工具；Glob/Grep/ApplyPatch 不在当前工具面，强制调用返回 Tool not found。PowerShell 真实系统查询、workspace 写改删及一次性 HKCU CRUD 已取得工具结果与副作用证据。
+
+固定生产 SEA protocol server **实测不加载父 `.env`**；Phase 1 `--prompt` headless 向上发现 `.env` 的证据仍有效，两者不能混为一个启动路径。成对设置 session-local builtin/personal 文件后，固定官方 builtin 可用，控制面 canary 在启动及超过 60 秒刷新周期后均无请求；源码 remote synchronizer 分支也不构造。这个结论只适用于记录的固定配置，不声称所有 YOLO 工具不联网。
+
+加入固定 Windows 系统 PATH/PATHEXT/ComSpec 的候选环境后，native cmd 和前台取消正常；与冻结生产环境分开记录。后台 Start-Process 子进程在 ZCode 正常退出后仍存活，必须作测试兜底回收；普通用户权限和完整整机落盘归因仍未证明。**STATUS=PARTIAL，生产 `ZcodeRuntime => RUNTIME_NOT_VALIDATED` 保持，等待外部 Review。** NotSigned 与 0.0.0-dev 是后续发行质量项，不是本阶段功能阻塞。详情与可重放用例见 [YOLO 资格记录](RUNTIME_QUALIFICATION_YOLO.md)。
+
 ## V0.2 实测更新
 
 当前官方 HEAD 仍为 `3c5b227649371507ddc4eb46ac5133afe6db1cab`；最新 tag v3.15.1，GitHub Release v3.14.3 仍只有桌面资产。没有沿用未复查的版本。选定该固定官方源码构建 Windows SEA，SHA-256 为 `f40f4b6c8709ba2cc89ea000c3a6d97e8680ee4233720f737b6b7a506417ddf8`。

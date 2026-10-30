@@ -2,6 +2,28 @@
 
 STATUS = PARTIAL。候选 SHA-256：`f40f4b6c8709ba2cc89ea000c3a6d97e8680ee4233720f737b6b7a506417ddf8`；源码 commit：`3c5b227649371507ddc4eb46ac5133afe6db1cab`。
 
+## Phase 2：固定本地 builtin + YOLO Agent Server
+
+下方“方法与实际观察”保留 Phase 1 headless/禁用扩展的历史范围。Phase 2 是 `agent-server --stdio`、`mode=yolo`，正常 Bash/Write/Edit 与内置插件工具实际注册；不能套用 Phase 1 “插件已禁用”的结论。
+
+本阶段从同一固定官方 commit 取得 `config/provider/zcode-builtin.test.json`，SHA-256 `e4e8e3527fa131195e3dc009d4fac9e5b403834281e9ecdddaa68850dc2cb7c0`，schemaVersion=1、revision=33、21 templates。该文件是此 SEA 构建默认 test 环境实际准备的 builtin，与 dist 文件一致；没有将 test 配置冒充 production release 配置，也没有伪造空 schema。
+
+完整文件复制到私有 Session，并同时显式设置 `ZCODE_BUILTIN_PROVIDER_CONFIG_FILE` 和 `ZCODE_PERSONAL_PROVIDER_CONFIG_FILE`；不设置 `ZCODE_BUILTIN_PROVIDER_BUNDLED_CONFIG_FILE`。固定 `provider-runtime-env.ts` 在成对路径时直接返回，不走 bundled cache/refresh 环境准备；`process-provider-registry-runtime.ts` 的 bundled/remote synchronizer 分支因而不构造。Personal fixture 模型与正常 YOLO 工具调用可用。
+
+| 实验 | 实际观察 |
+| --- | --- |
+| 26 个 YOLO 用例 | 只有真实 loopback personal 模型请求；IPv4 TCP 样本无非 loopback 连接 |
+| local-builtin-idle | 将 ZCODE_BASE_URL 指向本地 canary，完成一次请求后继续保持进程 66 秒，覆盖源码 60 秒刷新周期；控制面 GET=0，个人 Provider 正常 |
+| parent-dotenv | 父文件有 ZCODE_BASE_URL 与明显 canary；Agent 实际 PowerShell 环境两者均 null，控制面 GET=0；固定 SEA protocol server 未加载父 dotenv |
+| 模型取消 | fixture 持有请求，session/stop 后实际连接中止 |
+| 扩展/浏览器/登录/更新 | 未主动执行这些路径；schema 注册不等于执行资格或网络行为已穷尽 |
+
+**ZCODE_CONTROL_PLANE_NETWORK = ELIMINATED（该固定配置的 builtin 控制面/CDN 刷新路径）。** 依据是固定源码分支、真实个人请求、超过刷新周期的本地 canary，以及有限 TCP 观察的组合，不是单凭“没抓到连接”。对其他配置/版本、所有插件/Skill/Agent、WebFetch、DNS/IPv6/UDP 和短连接不作无联网承诺，整体 network observation coverage 仍 PARTIAL。
+
+Phase 1 headless 的 `zcode.z.ai`/CDN 链路与父 `.env` 请求证据原样保留，不再将它们描述为 Phase 2 protocol 候选必定发生的联网。原始环境组和受控系统环境组的脱敏证据及权限/cleanup 限制见 [YOLO 资格记录](RUNTIME_QUALIFICATION_YOLO.md)。
+
+补充固定源码：[provider registry bootstrap](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/apps/zcode-cli/packages/bootstrap/src/app/process-provider-registry-runtime.ts)、[provider refresh runtime](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/packages/provider-node/src/provider-config-runtime.ts)、[official builtin preparation](https://github.com/zai-org/ZCode/blob/3c5b227649371507ddc4eb46ac5133afe6db1cab/scripts/builtin-provider-config.mjs)。
+
 ## 方法与实际观察
 
 开发 fixture 只监听 loopback，捕获真实模型请求的 API 路径、工具声明和工具结果，不向上游模型转发。唯一模型认证值是固定无效 fixture token，未使用真实 G/D Key，也未登录 ZCode。

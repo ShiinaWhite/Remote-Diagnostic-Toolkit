@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "qualification_only": true,
+  "production_enabled": false,
+  "upstream_commit": "3c5b227649371507ddc4eb46ac5133afe6db1cab",
+  "runtime_filename": "zcode-windows-x64.exe",
+  "runtime_sha256": "f40f4b6c8709ba2cc89ea000c3a6d97e8680ee4233720f737b6b7a506417ddf8",
+  "protocol_command": "agent-server",
+  "session_mode": "yolo",
+  "builtin_source_path": "config/provider/zcode-builtin.test.json",
+  "builtin_source_git_blob": "7e3c6dd1f55e751d87984cfdabc44043738214fc",
+  "builtin_sha256": "e4e8e3527fa131195e3dc009d4fac9e5b403834281e9ecdddaa68850dc2cb7c0",
+  "builtin_schema_version": 1,
+  "builtin_revision": 33,
+  "builtin_provenance": "Exact fixed official-source config also staged into this SEA; upstream build defaults to test config. Not empty or fabricated."
+}

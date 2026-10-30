@@ -1,6 +1,16 @@
 # 安全模型
 
-V0.2 的开发 qualification 工具独立于客户 CLI/publish graph，仅执行固定 hash 的官方源码候选和本地合成 Provider。它不解锁生产 `ZcodeRuntime`，不使用真实模型 Key，不构成 OS 沙箱。新增实测与未关闭的边界见 [RUNTIME_QUALIFICATION.md](RUNTIME_QUALIFICATION.md)；不能把局部拒绝测试写成整机隔离保证。
+V0.2 的开发 qualification 工具独立于客户 CLI/publish graph，仅执行固定 hash 的官方源码候选和本地合成 Provider。它不解锁生产 `ZcodeRuntime`，不使用真实模型 Key，不构成 OS 沙箱。Phase 1 READ ONLY 是历史证据；当前默认产品方向为 YOLO / full Agent capabilities，见 [Phase 2](RUNTIME_QUALIFICATION_YOLO.md)。下述 V0.1 只读限制仍适用于冻结的客户 CLI，不能解释为禁止授权的 Phase 2 合成写入测试。
+
+## V0.2 候选的责任边界
+
+RDT 负责凭据保护、runtime 身份、Profile/Session 隔离、传输、清理及报告。READ ONLY 为未来可选模式，不另建 Windows 只读采集层。候选通过官方 `agent-server --stdio` 与 `session/create(mode=yolo)` 工作，不设置只读工具过滤；任务文本只进入 stdin frame。正常 Bash、Write、Edit 能力保留。Profile 环境重定向不限制 Agent 访问当前 Windows token 可访问的系统对象，也不等于系统级沙箱。
+
+Phase 2 的开发环境另测 Windows 系统目录构成的固定 PATH、固定 PATHEXT 和 ComSpec，避免继承用户 PATH/可执行入口；同时设置固定 hash 的本地 builtin 与 Session personal provider 配置。该候选环境没有修改 V0.1 `DiagnosticSession.EnvironmentVariables()` 或生产参数构造器。
+
+不主动提权或修改 UAC、ExecutionPolicy、Defender、安全策略。未来需要管理员能力时，由操作者显式以管理员身份启动 RDT。测试必须记录实际 token；管理员 token 下的成功不能证明普通用户也能成功。
+
+YOLO 工具可以创建下游进程。Session 目录清理成功和 ZCode 退出码 0 均不能证明下游进程停止；必须单独验证正常、取消、工具失败和脱离进程。开发 harness 仅对带本次 Session marker、精确 PID 创建时间的测试进程作兜底回收，兜底不算 runtime cleanup PASS。生产 Adapter 保持 `RUNTIME_NOT_VALIDATED`，进程生命周期缺口未关闭前不得解锁。
 
 目标是防止普通查看泄露 Key、未持 PIN 者直接使用工具、以及日常运行遗留明文 profile。不防当前用户权限下的恶意进程、管理员/调试器、内存抓取、离线长期暴力破解、恶意改版 runtime 或专业逆向。
 
@@ -33,7 +43,7 @@ HOME、USERPROFILE 指向 session/home；ZCODE_DATA_BASE_DIR 指向 session/data
 
 当前 headless 启动契约通过 `--prompt <text>` 传递任务描述。未来启用真实 runtime 时，prompt 可能出现在 Windows process command line，以及 EDR/Sysmon 等进程创建审计中。即使 RDT 不将 prompt 写入 Reports，这些外部记录仍可能保留客户任务、路径或业务信息；参数转义和 `UseShellExecute=false` 不提供保密性。PIN 和 API Key 仍不得作为命令行参数传递。
 
-启用真实 runtime 前，必须调查并以固定版本官方文档、源码和受控测试确认 `stdin`、`--stdio`、`app-server / agent-server` 以及其他不需要 command-line prompt 的官方入口，核验其协议、只读权限和数据落盘行为。这些是待调查候选，不代表已确认支持；不得凭猜测实现或切换协议。本次不改变 `--prompt` 调用契约，真实 runtime 保持 disabled，也不接真实 API Key。
+Phase 1 已验证官方 app-server/agent-server stdio；Phase 2 以 `agent-server --stdio` 为生产候选，验证 YOLO、工具、落盘与取消。新设计不采用 `--prompt`，冻结 V0.1 参数构造器仍保留历史契约且真实入口禁用。stdin 避免任务文本直接成为 ZCode argv；模型 IO、DB、日志仍可能含任务内容，必须位于私有 Session 并清理。Agent 自己启动的工具命令仍可能出现在 Windows 进程审计中，不能把 stdio 描述为消除所有进程命令行记录。
 
 ## 清理
 
