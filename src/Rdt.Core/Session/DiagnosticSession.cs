@@ -20,17 +20,55 @@ public sealed class DiagnosticSession : IDisposable
     private DiagnosticSession(string tempBase, Guid id) { Id = id; Root = Path.Combine(Path.GetFullPath(tempBase), "RDT-" + id.ToString("N")); }
 
     public static DiagnosticSession Create(string? tempBase = null)
+        => Create(tempBase ?? Path.GetTempPath(), path =>
+            new FileStream(path, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None));
+
+    // Internal seam for deterministic failure injection; no CLI/runtime configurability.
+    internal static DiagnosticSession Create(string tempBase, Func<string, FileStream> createLease)
     {
-        var session = new DiagnosticSession(tempBase ?? Path.GetTempPath(), Guid.NewGuid());
+        var session = new DiagnosticSession(tempBase, Guid.NewGuid());
+        var marker = new SessionMarker(1, session.Id, DateTimeOffset.UtcNow);
+        var markerWritten = false;
         PrivateFiles.CreateDirectory(session.Root);
         try
         {
-            PrivateFiles.WriteNew(Path.Combine(session.Root, "owner.json"), JsonSerializer.SerializeToUtf8Bytes(new SessionMarker(1, session.Id, DateTimeOffset.UtcNow)));
-            session.lease = new FileStream(Path.Combine(session.Root, ".lease"), FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None);
+            PrivateFiles.WriteNew(Path.Combine(session.Root, "owner.json"), JsonSerializer.SerializeToUtf8Bytes(marker));
+            markerWritten = true;
+            session.lease = createLease(Path.Combine(session.Root, ".lease"));
             foreach (var dir in new[] { session.Home, session.Data, session.Workspace, session.Runtime }) PrivateFiles.CreateDirectory(dir);
             return session;
         }
-        catch { session.Dispose(); new Cleanup.SessionCleaner(tempBase ?? Path.GetTempPath()).Clean(session.Root); throw; }
+        catch (Exception creationError)
+        {
+            session.Dispose();
+            try
+            {
+                if (markerWritten)
+                {
+                    var result = new Cleanup.SessionCleaner(tempBase).CleanOwned(session.Root, marker);
+                    if (result is not (Cleanup.CleanupResult.Complete or Cleanup.CleanupResult.AlreadyAbsent))
+                        throw new RdtException("SESSION_CREATE_ROLLBACK_FAILED");
+                }
+                else
+                {
+                    // Before a marker has been committed, only this invocation's newly
+                    // created root and its possibly partial marker can exist. Never recurse.
+                    var paths = new SessionPaths(tempBase);
+                    if (!paths.IsDirectSession(session.Root)) throw new RdtException("UNSAFE_PATH");
+                    PrivateFiles.RejectLinks(session.Root);
+                    var file = Path.Combine(session.Root, "owner.json");
+                    PrivateFiles.RejectLinks(file);
+                    File.Delete(file);
+                    Directory.Delete(session.Root);
+                }
+            }
+            catch (Exception rollbackError)
+            {
+                // Do not hide an unsuccessful rollback behind the original create error.
+                throw new AggregateException("SESSION_CREATE_ROLLBACK_FAILED", creationError, rollbackError);
+            }
+            throw;
+        }
     }
 
     public IReadOnlyDictionary<string, string> EnvironmentVariables()

@@ -387,8 +387,10 @@ public class FoundationTests(FoundationFixture f) : IClassFixture<FoundationFixt
         }
     }
 
-    [Fact]
-    public void CleanupRefusesJunctionAndPreservesOutsideEvidence()
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void CleanupRefusesJunctionAndPreservesOutsideEvidence(bool missingLease)
     {
         if (!OperatingSystem.IsWindows()) return;
         var s = DiagnosticSession.Create(f.Root);
@@ -405,7 +407,14 @@ public class FoundationTests(FoundationFixture f) : IClassFixture<FoundationFixt
             using var process = Process.Start(psi)!;
             Assert.True(process.WaitForExit(10000)); Assert.Equal(0, process.ExitCode);
             s.Dispose();
+            if (missingLease)
+            {
+                File.Delete(Path.Combine(s.Root, ".lease"));
+                File.WriteAllBytes(Path.Combine(s.Root, "owner.json"), JsonSerializer.SerializeToUtf8Bytes(
+                    new SessionMarker(1, s.Id, DateTimeOffset.UtcNow.AddDays(-2))));
+            }
             Assert.Equal(CleanupResult.Refused, new SessionCleaner(f.Root).Clean(s.Root));
+            Assert.DoesNotContain(s.Root, new SessionCleaner(f.Root).FindStale(DateTimeOffset.UtcNow));
             Assert.Equal("customer evidence", File.ReadAllText(evidence));
             Assert.Throws<RdtException>(() => PrivateFiles.WriteNew(Path.Combine(junction, "forbidden.txt"), "no"u8));
             Assert.False(File.Exists(Path.Combine(outside, "forbidden.txt")));

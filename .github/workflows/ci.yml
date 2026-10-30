@@ -1,0 +1,28 @@
+name: V0.1 foundation CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Locked restore
+        run: dotnet restore Rdt.slnx --locked-mode
+      - name: Release build
+        run: dotnet build Rdt.slnx -c Release --no-restore
+      - name: Mock foundation tests (no API key)
+        run: dotnet test Rdt.slnx -c Release --no-build --no-restore

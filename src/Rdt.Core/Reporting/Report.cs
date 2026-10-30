@@ -1,5 +1,6 @@
 using System.Text;
 using Rdt.Common;
+using Rdt.Session;
 
 namespace Rdt.Reporting;
 
@@ -12,10 +13,9 @@ public sealed class Report
     {
         reportsBase = Path.GetFullPath(reportsBase);
         PrivateFiles.RejectLinks(reportsBase);
-        // No report may be inside ANY session root, including an old orphan.
-        for (var dir = new DirectoryInfo(reportsBase); dir != null; dir = dir.Parent)
-            if (dir.Name.StartsWith("RDT-", StringComparison.OrdinalIgnoreCase)) throw new RdtException("REPORT_PATH_UNSAFE");
-        if (string.Equals(Path.GetFullPath(tempBase).TrimEnd(Path.DirectorySeparatorChar), reportsBase.TrimEnd(Path.DirectorySeparatorChar), StringComparison.OrdinalIgnoreCase))
+        var paths = new SessionPaths(tempBase);
+        if (paths.ContainsSessionPath(reportsBase)
+            || string.Equals(paths.TempBase, Path.TrimEndingDirectorySeparator(reportsBase), SessionPaths.Comparison))
             throw new RdtException("REPORT_PATH_UNSAFE");
         Directory.CreateDirectory(reportsBase);
         var path = Path.Combine(reportsBase, DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + "_" + Guid.NewGuid().ToString("N")[..8]);

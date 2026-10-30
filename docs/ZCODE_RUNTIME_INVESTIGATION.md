@@ -54,6 +54,14 @@
 
 ## 真实接入的放行条件
 
+### 待调查：不通过命令行传递 prompt 的官方入口
+
+当前 headless 设计使用 `--prompt <text>` 传递任务描述。未来真实接入时，prompt 可能暴露在 Windows process command line、EDR/Sysmon 等进程创建审计中；RDT 不导出 prompt 到 Reports 不能消除这类外部审计记录。任务描述可能包含客户信息，因此这是启用真实 runtime 前必须处理的保密风险。
+
+在固定版本的官方文档和源码中调查 `stdin`、`--stdio`、`app-server / agent-server`，以及其他不需要 command-line prompt 的官方入口，并用受控、无真实 Key 的测试核验输入协议、权限约束和日志/落盘行为。上述入口只是调查清单，尚未确认它们可直接替代当前 headless 契约；不得凭名称或猜测实现。本次不改变 ZCode 调用协议，不启用真实 runtime，不连接真实 API。
+
+### 其他既有放行条件
+
 额外实现细节：`provider-node/runtime-paths.ts` 的底层 resolver 要求 builtin 与 personal 两条路径成对出现；但 CLI `provider-runtime-env.ts` 入口接受只指定 personal，并准备/缓存随包 builtin，随后把两条路径交给 runtime。RDT 只设置 personal 路径，不能把空 JSON 冒充 builtin 配置。真实接入还须核验 builtin 刷新与缓存的网络行为及临时落盘位置。
 
 取得可信、固定 hash/版本及许可证材料的 Windows CLI（无需主账号登录）；在临时目录实测 --help、doctor、provider schema 与工具清单；使用本地受控 provider（无真实 Key）验证 Read 成功、Write/Edit/Bash/模式切换/子任务/MCP/插件失败；验证配置与 .env 不越界，进程树停止后无残留 profile。完成后才实现启用逻辑，不能用一个用户开关跳过。

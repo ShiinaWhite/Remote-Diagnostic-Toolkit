@@ -27,7 +27,17 @@ HOME、USERPROFILE 指向 session/home；ZCODE_DATA_BASE_DIR 指向 session/data
 
 后续真实接入必须验证启动入口对 personal/builtin 配置的成对处理、内置配置刷新网络行为、父目录 .env 发现、SEA 解包缓存及所有实际工具。当前不宣称通过环境变量能约束所有未知上游代码。
 
+## Prompt 的 command-line 暴露风险
+
+当前 headless 启动契约通过 `--prompt <text>` 传递任务描述。未来启用真实 runtime 时，prompt 可能出现在 Windows process command line，以及 EDR/Sysmon 等进程创建审计中。即使 RDT 不将 prompt 写入 Reports，这些外部记录仍可能保留客户任务、路径或业务信息；参数转义和 `UseShellExecute=false` 不提供保密性。PIN 和 API Key 仍不得作为命令行参数传递。
+
+启用真实 runtime 前，必须调查并以固定版本官方文档、源码和受控测试确认 `stdin`、`--stdio`、`app-server / agent-server` 以及其他不需要 command-line prompt 的官方入口，核验其协议、只读权限和数据落盘行为。这些是待调查候选，不代表已确认支持；不得凭猜测实现或切换协议。本次不改变 `--prompt` 调用契约，真实 runtime 保持 disabled，也不接真实 API Key。
+
 ## 清理
+
+创建失败时使用本次调用持有的精确 marker 回滚；owner.json 已成功而 .lease 创建失败时，回滚不依赖再次创建 .lease。marker 尚未写完时，只移除本次新建根中的已知 marker 文件和空目录，不递归删除未知内容。回滚失败明确抛出固定失败标识，不静默吞掉。
+
+对磁盘上发现的合法 session，缺失 .lease 表示 Orphaned，近期目录保留，超过 24 小时后才可被 FindStale 发现并安全清理；缺失 lease 绝不替代路径、GUID、marker、时间和 reparse point 检查。只有打开已有 .lease 时的 Windows sharing violation 才返回 Active；其他租约 I/O、删除文件被占用或删除阶段 I/O 返回 Failed，并尽量保留 marker/lease 供重试。清理运行数据期间保持取得的排他租约。
 
 清理器只允许指定 temp 根的直接子目录 `RDT-<32位GUID>`；检查标记版本、GUID 一致、时间合理、排他租约。未持有合法标记的目录不删除。删除前和逐级删除时拒绝 reparse point，不跟随 junction/symlink。活动 session 不删除；异常遗留清理需超过 24 小时并显式执行命令。
 
